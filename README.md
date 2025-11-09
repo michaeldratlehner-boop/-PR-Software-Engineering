@@ -1,5 +1,8 @@
 Aufgabenstellung fürs Wintersemster 2025: [Aufgabenstellung SmartHomeSimulator.pdf](https://github.com/user-attachments/files/23442937/Aufgabenstellung.SmartHomeSimulator.pdf)
 
+Figma Link zum Prototypen: https://www.figma.com/site/7QWBp8vzYai2F1gEPA9CZa/Smart-Home-Simulator?node-id=0-1&t=SwOVjNfCFqaSscRz-1
+
+
 Allgemeines: 
 * Jeder Commit erfordert einen timehook. Dieser muss wie folgt genutzt werden -> Fix API bug | time: 45m
 
