@@ -1,0 +1,17 @@
+#!/bin/sh
+# commit-msg Hook: überprüft, ob eine Zeitangabe vorhanden ist
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Prüft, ob "| time: ..." vorkommt, z. B. "| time: 1h" oder "| time: 30m"
+if echo "$commit_msg" | grep -Eq '\| *time: *[0-9]+(h|m)'; then
+  echo "✅ Commit enthält Zeitangabe."
+  exit 0
+else
+  echo "❌ Commit abgebrochen!"
+  echo "Bitte füge eine Zeitangabe hinzu, z.B.:"
+  echo "git commit -m \"Fix API bug | time: 45m\""
+  exit 1
+fi
+
