@@ -14,3 +14,4 @@ Regeln für Planung:
 | **M (Medium)** | 4–7 SP       | ca. 4–7 Stunden                           | Mittlere Aufgabe mit mehreren Teilschritten oder geringer Komplexität; eventuell kurze Abstimmung erforderlich.        |
 | **L (Large)**  | ≥ 8 SP       | ab ca. 8 Stunden (1 Arbeitstag oder mehr) | Größere Aufgabe mit höherer Komplexität, mehreren Abhängigkeiten oder Unsicherheiten; ggf. in kleinere Issues teilbar. |
 1 Story Point = 1h 
+.
