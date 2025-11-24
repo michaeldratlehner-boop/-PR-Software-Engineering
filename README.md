@@ -16,3 +16,5 @@ Regeln für Planung:
 1 Story Point = 1h 
 .
 
+
+
