@@ -15,3 +15,4 @@ Regeln für Planung:
 | **L (Large)**  | ≥ 8 SP       | ab ca. 8 Stunden (1 Arbeitstag oder mehr) | Größere Aufgabe mit höherer Komplexität, mehreren Abhängigkeiten oder Unsicherheiten; ggf. in kleinere Issues teilbar. |
 1 Story Point = 1h 
 .
+
