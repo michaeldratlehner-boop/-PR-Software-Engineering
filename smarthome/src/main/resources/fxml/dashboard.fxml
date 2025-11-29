@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.DashboardController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <left>
+        <VBox spacing="12" style="-fx-background-color: #2e3b4e; -fx-padding: 20;">
+                <Button text="Dashboard" onAction="#goDashboard"/>
+                <Button text="Räume" onAction="#goRooms"/>
+                <Button text="Einstellungen" onAction="#goSettings"/>
+                <Button text="Logout" onAction="#logout"/>
+        </VBox>
+    </left>
+
+    <center>
+        <Label text="Willkommen im SmartHome Simulator" style="-fx-font-size: 24" />
+    </center>
+
+</BorderPane>
