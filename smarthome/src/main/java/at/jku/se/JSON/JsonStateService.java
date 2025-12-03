@@ -1,4 +1,4 @@
-package JSON;
+package at.jku.se.JSON;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
