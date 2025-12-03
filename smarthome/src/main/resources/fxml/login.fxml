@@ -1,20 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" spacing="10"
-        xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="at.jku.se.smarthome.controllers.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Login" style="-fx-font-size: 24"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <PasswordField fx:id="passwordField" promptText="Passwort"/>
+            style="-fx-background-color:#f2f2f2;"
+            prefWidth="820" prefHeight="640">
 
-    <Button text="Login" onAction="#login"/>
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20"
+              style="-fx-background-color:#e0e0e0; -fx-background-radius:20;"
+              maxWidth="400">
+            <padding>
+                <Insets top="30" right="40" bottom="30" left="40"/>
+            </padding>
 
-</VBox>
+            <children>
+
+                <!-- Icon-Kreis -->
+                <StackPane prefWidth="90" prefHeight="90"
+                           style="-fx-background-color:white; -fx-background-radius:45;">
+                    <children>
+                        <Label text="⌂" style="-fx-font-size:32;"/>
+                    </children>
+                </StackPane>
+
+                <!-- Überschrift -->
+                <VBox spacing="4" alignment="CENTER">
+                    <children>
+                        <Label text="Anmelden"
+                               style="-fx-font-size:24; -fx-font-weight:bold;"/>
+                        <Label text="Melden Sie sich bei Ihrem Smart Home Konto an"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                    </children>
+                </VBox>
+
+                <!-- Formular -->
+                <VBox spacing="10" maxWidth="Infinity">
+                    <children>
+                        <Label text="E-Mail-Adresse" />
+                        <TextField fx:id="emailField" promptText="max@beispiel.at"/>
+
+                        <Label text="Passwort" />
+                        <PasswordField fx:id="passwordField" promptText="********"/>
+                    </children>
+                </VBox>
+
+                <!-- Login-Button -->
+                <Button text="Anmelden" onAction="#login"
+                        maxWidth="Infinity"
+                        style="-fx-background-color:#333333; -fx-text-fill:white;"/>
+
+                <!-- Registrierung-Link -->
+                <Button text="Noch kein Konto? jetzt registrieren"
+                        onAction="#goToRegister"
+                        style="-fx-background-color:transparent; -fx-text-fill:#444444;"
+                        underline="true"/>
+
+            </children>
+        </VBox>
+    </center>
+
+    <!-- Zurück zur Startseite -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <children>
+                <Button text="←  Zurück zur Startseite"
+                        style="-fx-background-color:transparent;"
+                        onAction="#backToStart"/>
+            </children>
+        </HBox>
+    </bottom>
+
+</BorderPane>
