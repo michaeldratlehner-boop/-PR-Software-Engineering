@@ -16,4 +16,14 @@ public class LoginController {
     private void login() {
         App.setRoot("dashboard");
     }
+
+    @FXML
+    private void goToRegister() {
+        App.setRoot("register");
+    }
+
+    @FXML
+    private void backToStart() {
+
+    }
 }
