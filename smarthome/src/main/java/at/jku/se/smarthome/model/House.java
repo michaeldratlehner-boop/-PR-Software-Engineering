@@ -24,4 +24,8 @@ public class House {
 
     public String getName() { return name; }
     public String getAddress() { return address; }
+
+    public String getId() {
+        return "0";
+    }
 }

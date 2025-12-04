@@ -11,4 +11,12 @@ public class Room {
 
     public String getName() { return name; }
     public double getSizeSquareMeters() { return sizeSquareMeters; }
+
+    public Object getHouseId() {
+        return 0;
+    }
+
+    public String getId() {
+        return "";
+    }
 }

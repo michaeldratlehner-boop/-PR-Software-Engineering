@@ -24,6 +24,6 @@ public class LoginController {
 
     @FXML
     private void backToStart() {
-
+        App.setRoot("login");
     }
 }
