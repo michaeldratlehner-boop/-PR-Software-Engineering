@@ -42,4 +42,10 @@ public class DashboardController {
     private void logout(){
         App.setRoot("login");
     }
+
+    @FXML
+    private void goUserCockpit() {
+        App.setRoot("userCockpit");  // userCockpit.fxml laden
+    }
+
 }

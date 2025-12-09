@@ -1,1 +1,3 @@
 at/jku/se/smarthome/controllers/LandingPageController.class
+at/jku/se/smarthome/controllers/UserCockpitController.class
+at/jku/se/smarthome/controllers/UserProfileEditController.class

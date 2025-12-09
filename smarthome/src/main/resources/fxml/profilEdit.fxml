@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.UserProfileEditController"
+            style="-fx-background-color:#f2f2f2;"
+            prefWidth="1000" prefHeight="650">
+
+    <!-- TOP: Zurück zur Startseite -->
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="30"/>
+            </padding>
+            <children>
+                <Button text="←  Zurück zur Startseite"
+                        style="-fx-background-color:transparent; -fx-text-fill:#444;"
+                        onAction="#backToDashboard"/>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- CENTER: Karte mit Formular + Smart-Home-Infos -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20">
+            <padding>
+                <Insets top="20" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <!-- Profilkarte -->
+            <VBox spacing="16"
+                  maxWidth="700"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                <padding>
+                    <Insets top="24" right="32" bottom="24" left="32"/>
+                </padding>
+
+                <!-- Titel + Untertitel -->
+                <VBox spacing="4">
+                    <children>
+                        <Label text="Benutzerprofil"
+                               style="-fx-font-size:18; -fx-font-weight:bold;"/>
+                        <Label text="Verwalten Sie Ihre Kontoinformationen"
+                               style="-fx-font-size:11; -fx-text-fill:#555;"/>
+                    </children>
+                </VBox>
+
+                <!-- Avatar-Kreis + Formular nebeneinander -->
+                <HBox spacing="25" alignment="TOP_LEFT">
+
+                    <!-- Avatar -->
+                    <VBox alignment="TOP_CENTER" spacing="10">
+                        <children>
+                            <StackPane prefWidth="110" prefHeight="110"
+                                       style="-fx-background-color:white; -fx-background-radius:55;">
+                                <children>
+                                    <Label text="MM" style="-fx-font-size:26; -fx-font-weight:bold;"/>
+                                </children>
+                            </StackPane>
+                            <Button text="Bild hochladen"
+                                    style="-fx-font-size:11; -fx-background-color:transparent;"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Formular -->
+                    <GridPane hgap="12" vgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <!-- Vorname -->
+                        <Label text="Vorname *" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="firstNameField"
+                                   promptText="Max"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+                        <!-- Nachname -->
+                        <Label text="Nachname *" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <TextField fx:id="lastNameField"
+                                   promptText="Mustermann"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <!-- E-Mail -->
+                        <Label text="E-Mail-Adresse *" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+                        <TextField fx:id="emailField"
+                                   promptText="max@beispiel.de"
+                                   editable="false"
+                                   GridPane.rowIndex="3" GridPane.columnIndex="0"
+                                   GridPane.columnSpan="2"/>
+                        <Label text="E-Mail kann nicht geändert werden!"
+                               style="-fx-font-size:10; -fx-text-fill:#777;"
+                               GridPane.rowIndex="4" GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+
+                        <!-- Adresse -->
+                        <Label text="Adresse *" GridPane.rowIndex="5" GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+                        <TextField fx:id="addressField"
+                                   promptText="Musterstraße 1, 1010 Wien"
+                                   GridPane.rowIndex="6" GridPane.columnIndex="0"
+                                   GridPane.columnSpan="2"/>
+
+                        <!-- Passwort -->
+                        <Label text="Passwort *" GridPane.rowIndex="7" GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+                        <PasswordField fx:id="passwordField"
+                                       promptText="********"
+                                       GridPane.rowIndex="8" GridPane.columnIndex="0"
+                                       GridPane.columnSpan="2"/>
+
+                        <!-- Passwort bestätigen -->
+                        <Label text="Passwort bestätigen *" GridPane.rowIndex="9" GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+                        <PasswordField fx:id="confirmPasswordField"
+                                       promptText="********"
+                                       GridPane.rowIndex="10" GridPane.columnIndex="0"
+                                       GridPane.columnSpan="2"/>
+
+                    </GridPane>
+                </HBox>
+
+                <!-- Buttons Speichern / Abbrechen -->
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <children>
+                        <Label fx:id="errorLabel"
+                               style="-fx-text-fill:#c62828; -fx-font-size:11;"
+                               HBox.hgrow="ALWAYS"/>
+                        <Button text="Speichern"
+                                onAction="#saveProfile"
+                                style="-fx-background-color:#333; -fx-text-fill:white;"/>
+                        <Button text="Abbrechen"
+                                onAction="#cancelEdit"
+                                style="-fx-background-color:#ccc; -fx-text-fill:#333;"/>
+                    </children>
+                </HBox>
+            </VBox>
+
+            <!-- Smart-Home-Informationen -->
+            <VBox spacing="12"
+                  maxWidth="700"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                <padding>
+                    <Insets top="20" right="32" bottom="20" left="32"/>
+                </padding>
+
+                <Label text="Smart Home Informationen"
+                       style="-fx-font-size:14; -fx-font-weight:bold;"/>
+
+                <GridPane hgap="40" vgap="4">
+                    <children>
+                        <Label text="Benutzer-ID:"
+                               GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label fx:id="userIdLabel"
+                               text="0e6422be-81cc-41b3-9e46-661b3e3bc679"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+                        <Label text="Breitengrad:"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label fx:id="latitudeLabel"
+                               text="48.2082°N"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Längengrad:"
+                               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <Label fx:id="longitudeLabel"
+                               text="16.3738°E"
+                               GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    </children>
+                </GridPane>
+
+                <Label text="Diese Standortdaten können für Smart Home Automatisierungen wie wetterbasierte Steuerungen, Zeitzonenberechnung und lokale Dienste verwendet werden."
+                       wrapText="true"
+                       style="-fx-font-size:10; -fx-text-fill:#555;"/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

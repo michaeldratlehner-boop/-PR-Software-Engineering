@@ -46,7 +46,9 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <Label text="Profil ➝" style="-fx-font-size: 16px; -fx-text-fill: gray;"/>
+                <Label text="Profil ➝"
+                       style="-fx-font-size: 16px; -fx-text-fill: gray; -fx-cursor: hand;"
+                       onMouseClicked="#goUserCockpit"/>
 
             </HBox>
 

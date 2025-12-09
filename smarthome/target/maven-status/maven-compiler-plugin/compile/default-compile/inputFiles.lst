@@ -6,6 +6,8 @@
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/LandingPageController.java
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/LoginController.java
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/RegisterController.java
+/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/UserCockpitController.java
+/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/UserProfileEditController.java
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/House.java
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/Room.java
 /Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/User.java
