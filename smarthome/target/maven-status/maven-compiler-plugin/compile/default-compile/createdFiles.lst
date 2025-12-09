@@ -2,8 +2,12 @@ at/jku/se/smarthome/controllers/LandingPageController.class
 at/jku/se/smarthome/controllers/UserCockpitController.class
 at/jku/se/State/CurrentUser.class
 at/jku/se/smarthome/controllers/UserProfileEditController.class
+at/jku/se/smarthome/controllers/CreateRoomController.class
+at/jku/se/smarthome/controllers/RoomCockpitController.class
 at/jku/se/smarthome/service/PasswordHasher.class
 at/jku/se/State/JsonStateService.class
 at/jku/se/State/AppState.class
+at/jku/se/smarthome/controllers/BuildingCockpitController.class
 at/jku/se/smarthome/service/GeocodingService$Coordinates.class
 at/jku/se/smarthome/service/GeocodingService.class
+at/jku/se/smarthome/controllers/CreateBuildingController.class

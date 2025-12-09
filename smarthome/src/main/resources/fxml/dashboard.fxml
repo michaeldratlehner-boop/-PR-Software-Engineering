@@ -42,26 +42,44 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <Label text="Profil ➝"
-                       style="-fx-font-size: 16px; -fx-text-fill: gray; -fx-cursor: hand;"
-                       onMouseClicked="#goUserCockpit"/>
+                <Button text="Profil ➝"
+                        style="-fx-background-color: transparent; -fx-text-fill: gray;"
+                        onAction="#goUserCockpit"/>
 
             </HBox>
 
             <!-- STATS ROW -->
             <HBox spacing="20" alignment="CENTER">
-
-                <VBox fx:id="roomsCard" alignment="CENTER" spacing="6"
+                <!--  Gebäude   -->
+                <VBox fx:id="buildingsCard"
+                      onMouseClicked="#goBuildingCockpit"
+                      alignment="CENTER" spacing="6"
                       style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);
+                 -fx-cursor: hand;"
+                      prefWidth="150" prefHeight="100">
+                    <padding>
+                        <Insets top="20" bottom="20"/>
+                    </padding>
+                    <Label text="Gebäude" style="-fx-font-size: 16px;"/>
+                    <Label fx:id="buildingsCount" text="0"
+                           style="-fx-font-size: 20px; -fx-text-fill: gray;"/>
+                </VBox>
+                <!-- Räume -->
+                <VBox fx:id="roomsCard" alignment="CENTER" spacing="6"
+                      onMouseClicked="#goRoomCockpit"
+                      style="-fx-background-color: white; -fx-background-radius: 12;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="150" prefHeight="100">
                     <padding>
                         <Insets top="20" bottom="20"/>
                     </padding>
                     <Label text="Räume" style="-fx-font-size: 16px;"/>
-                    <Label fx:id="roomsCount" text="0" style="-fx-font-size: 20px; -fx-text-fill: gray;"/>
+                    <Label fx:id="roomsCount" text="0"
+                           style="-fx-font-size: 20px; -fx-text-fill: gray;"/>
                 </VBox>
 
+                <!-- Geräte -->
                 <VBox fx:id="devicesCard" alignment="CENTER" spacing="6"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
@@ -73,6 +91,7 @@
                     <Label fx:id="devicesCount" text="0" style="-fx-font-size: 20px; -fx-text-fill: gray;"/>
                 </VBox>
 
+                <!-- Regeln -->
                 <VBox fx:id="rulesCard" alignment="CENTER" spacing="6"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
@@ -84,6 +103,7 @@
                     <Label fx:id="rulesCount" text="0" style="-fx-font-size: 20px; -fx-text-fill: gray;"/>
                 </VBox>
 
+                <!-- Sensoren -->
                 <VBox fx:id="sensorsCard" alignment="CENTER" spacing="6"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
@@ -109,6 +129,7 @@
 
                 <!-- 1: Gebäude hinzufügen -->
                 <VBox fx:id="addBuildingCard"
+                      GridPane.rowIndex="0" GridPane.columnIndex="0"
                       onMouseClicked="#goCreateBuilding"
                       style="-fx-background-color: white; -fx-background-radius: 12;
              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);
@@ -117,26 +138,44 @@
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
-                    <Label text="Gebäude hinzufügen" style="-fx-font-size: 18px;"/>
-                    <Label text="Erstellen und organisieren Sie virtuelle Gebäude für Ihr Smart Home"
+                    <children>
+                        <Label text="Gebäude hinzufügen" style="-fx-font-size: 18px;"/>
+                        <Label text="Erstellen und organisieren Sie virtuelle Gebäude für Ihr Smart Home"
+                               wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
+                    </children>
+                </VBox>
+
+                <!--  Raum hinzufügen -->
+                <VBox fx:id="addRoomCard"
+                      onMouseClicked="#goCreateRoom"
+                      GridPane.rowIndex="0" GridPane.columnIndex="1"
+                      style="-fx-background-color: white; -fx-background-radius: 12;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);
+             -fx-cursor: hand;"
+                      prefWidth="260" prefHeight="140" spacing="8">
+                    <padding>
+                        <Insets top="20" left="20" right="20"/>
+                    </padding>
+                    <Label text="Raum hinzufügen" style="-fx-font-size: 18px;"/>
+                    <Label text="Erstellen und organisieren Sie virtuelle Räume für Ihr Smart Home"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
 
 
-                <!-- 2 -->
-                <VBox GridPane.columnIndex="1" style="-fx-background-color: white; -fx-background-radius: 12;
+                <!--Geräte hinzufügen-->
+                <VBox   GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="260" prefHeight="140" spacing="8">
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
-                    <Label text="Geräte steuern" style="-fx-font-size: 18px;"/>
+                    <Label text="Geräte hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Fügen Sie Geräte hinzu und steuern Sie diese in Echtzeit"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
 
-                <!-- 3 -->
-                <VBox GridPane.columnIndex="2" style="-fx-background-color: white; -fx-background-radius: 12;
+                <!-- Automatisierung hinzufügen -->
+                <VBox   GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="260" prefHeight="140" spacing="8">
                     <padding>
@@ -148,17 +187,19 @@
                 </VBox>
 
                 <!-- zweite Reihe -->
+                <!-- Sensorwerte hinzufügen -->
                 <VBox GridPane.rowIndex="1" style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="260" prefHeight="140" spacing="8">
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
-                    <Label text="Sensorwerte" style="-fx-font-size: 18px;"/>
+                    <Label text="Sensorwerte hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Überwachen Sie Temperatur, Helligkeit und weitere Sensordaten"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
 
+                <!-- Zeitsteuerung hinzufügen-->
                 <VBox GridPane.rowIndex="1" GridPane.columnIndex="1"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
@@ -166,11 +207,11 @@
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
-                    <Label text="Zeitsteuerung" style="-fx-font-size: 18px;"/>
+                    <Label text="Zeitsteuerung hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Planen Sie Aktionen basierend auf Zeit und Zeitplänen"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
-
+                <!-- Sicherheitssysteme hinzufügen -->
                 <VBox GridPane.rowIndex="1" GridPane.columnIndex="2"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
@@ -178,7 +219,7 @@
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
-                    <Label text="Sicherheit" style="-fx-font-size: 18px;"/>
+                    <Label text="Sicherheit hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Simulieren Sie Sicherheitssysteme und Überwachung"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>

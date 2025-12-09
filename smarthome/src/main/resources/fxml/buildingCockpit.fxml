@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.BuildingCockpitController"
+            style="-fx-background-color:#f2f2f2;"
+            prefWidth="820" prefHeight="640">
+
+    <!-- Zurück zur Startseite oben links -->
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="15" right="20" bottom="10" left="25"/>
+            </padding>
+            <children>
+                <Button text="←  Zurück zur Startseite"
+                        style="-fx-background-color:transparent; -fx-text-fill:#333333;"
+                        onAction="#backToDashboard"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="0" bottom="20" left="0"/>
+            </padding>
+            <children>
+
+                <!-- Karte: Liste der angelegten Gebäude -->
+                <VBox alignment="TOP_LEFT" spacing="16"
+                      maxWidth="520"
+                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                    <padding>
+                        <Insets top="24" right="40" bottom="24" left="40"/>
+                    </padding>
+
+                    <children>
+                        <!-- Überschrift -->
+                        <VBox spacing="2">
+                            <children>
+                                <Label text="Liste der angelegten"
+                                       style="-fx-font-size:16; -fx-font-weight:bold;"/>
+                                <Label text="Gebäude"
+                                       style="-fx-font-size:16; -fx-font-weight:bold;"/>
+                                <Label text="Gebäude für andere Nutzer freigeben oder diese bearbeiten"
+                                       wrapText="true"
+                                       style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Liste der Gebäude (wird später dynamisch befüllt) -->
+                        <VBox fx:id="buildingsListBox" spacing="10">
+                            <!-- Beispiel-Eintrag -->
+                            <HBox alignment="CENTER_LEFT" spacing="10"
+                                  style="-fx-background-color:white;
+                                         -fx-background-radius:20;
+                                         -fx-border-radius:20;
+                                         -fx-border-color:#cccccc;">
+                                <padding>
+                                    <Insets top="6" right="10" bottom="6" left="20"/>
+                                </padding>
+                                <children>
+                                    <Label fx:id="exampleBuildingLabel"
+                                           text="Meine Wohnung"
+                                           style="-fx-font-size:12;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+
+                                    <Button text="Bearbeiten"
+                                            onAction="#editSelectedBuilding"
+                                            style="-fx-background-color:#333333;
+                                                   -fx-text-fill:white;
+                                                   -fx-padding:3 10 3 10;"/>
+
+                                    <Button text="Freigeben"
+                                            onAction="#shareSelectedBuilding"
+                                            style="-fx-background-color:white;
+                                                   -fx-text-fill:#333333;
+                                                   -fx-border-color:#333333;
+                                                   -fx-border-radius:12;
+                                                   -fx-padding:3 10 3 10;"/>
+                                </children>
+                            </HBox>
+                        </VBox>
+                    </children>
+                </VBox>
+
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

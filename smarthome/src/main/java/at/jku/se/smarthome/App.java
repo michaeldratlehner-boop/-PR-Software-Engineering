@@ -1,5 +1,8 @@
 package at.jku.se.smarthome;
 
+import at.jku.se.smarthome.model.User;
+import at.jku.se.State.CurrentUser;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +14,14 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-        setRoot("landingPage");
+
+        //fake Login für die Entwicklung
+        User demo = new User();
+        demo.setFirstName("Michael");
+        demo.setLastName("Drahtlehner");
+        CurrentUser.setCurrentUser(demo);
+
+        setRoot("dashboard"); //von vorne mit "landingPAge" starten
         stage.setTitle("Smarthome Simulator");
         stage.show();
     }

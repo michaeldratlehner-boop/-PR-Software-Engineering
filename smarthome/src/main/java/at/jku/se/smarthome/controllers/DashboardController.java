@@ -4,6 +4,7 @@ import at.jku.se.smarthome.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import at.jku.se.State.CurrentUser;
+import javafx.scene.layout.VBox;
 
 public class DashboardController {
     @FXML private Label usernameLabel;
@@ -11,6 +12,8 @@ public class DashboardController {
     @FXML private Label devicesCount;
     @FXML private Label rulesCount;
     @FXML private Label sensorsCount;
+    @FXML private Label buildingsCount;
+    @FXML private VBox addBuildingCard;
 
     @FXML
     public void initialize(){
@@ -20,8 +23,31 @@ public class DashboardController {
         devicesCount.setText("0");
         rulesCount.setText("0");
         sensorsCount.setText("0");
+        // Optional: "Gebäude hinzufügen"-Kachel nur zeigen, wenn 0 Gebäude
+        updateAddBuildingVisibility();
+    }
+    private void updateAddBuildingVisibility() {
+        int count = Integer.parseInt(buildingsCount.getText());
+        boolean showAdd = (count == 0);
+        if (addBuildingCard != null) {
+            addBuildingCard.setVisible(showAdd);
+            addBuildingCard.setManaged(showAdd);
+        }
     }
 
+    // Wird von onMouseClicked der Gebäude-Kachel aufgerufen
+    @FXML
+    private void openBuildings() {
+        int count = Integer.parseInt(buildingsCount.getText());
+
+        if (count == 0) {
+            // noch keine Gebäude → direkt zur "Gebäude erstellen"-Seite
+            App.setRoot("createBuilding");     // createBuilding.fxml
+        } else {
+            // es gibt schon Gebäude → Liste der angelegten Gebäude anzeigen
+            App.setRoot("buildingList");       // buildingList.fxml
+        }
+    }
 
    @FXML
     private void goDashboard(){
@@ -54,5 +80,21 @@ public class DashboardController {
     private void goCreateBuilding() {
         App.setRoot("createBuilding");  // createBuilding.fxml laden
     }
+
+    @FXML
+    private void goCreateRoom() {
+        App.setRoot("createRoom");  // createRoom.fxml laden
+    }
+
+    @FXML
+    private void goBuildingCockpit() {
+        App.setRoot("buildingCockpit");  // buildingCockpit.fxml laden
+    }
+
+    @FXML
+    private void goRoomCockpit() {
+        App.setRoot("roomCockpit");  // roomCockpit.fxml laden
+    }
+
 
 }

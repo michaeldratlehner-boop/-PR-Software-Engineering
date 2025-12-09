@@ -53,4 +53,9 @@ public class UserCockpitController {
         App.setRoot("profilEdit");
     }
 
+    @FXML
+    private void backToDashboard() {
+        App.setRoot("dashboard");
+    }
+
 }
