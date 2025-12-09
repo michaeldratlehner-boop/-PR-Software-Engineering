@@ -3,6 +3,7 @@ package at.jku.se.smarthome.controllers;
 import at.jku.se.smarthome.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import at.jku.se.State.CurrentUser;
 
 public class DashboardController {
     @FXML private Label usernameLabel;
@@ -13,7 +14,8 @@ public class DashboardController {
 
     @FXML
     public void initialize(){
-        usernameLabel.setText("Michael Drahtlehner");
+        usernameLabel.setText(CurrentUser.getCurrentUser().getFirstName()+" "+CurrentUser.getCurrentUser().getLastName());
+         // Dummy-Werte setzen, später durch echte Logik ersetzen
         roomsCount.setText("0");
         devicesCount.setText("0");
         rulesCount.setText("0");

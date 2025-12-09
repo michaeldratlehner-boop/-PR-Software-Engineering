@@ -1,4 +1,4 @@
-package at.jku.se.JSON;
+package at.jku.se.State;
 
 import at.jku.se.smarthome.model.House;
 import at.jku.se.smarthome.model.Room;
@@ -96,7 +96,7 @@ public class AppState {
         rooms.remove(id);
         save();
     }
-    // Save the current state to JSON
+    // Save the current state to State
     private void save() {
         JsonStateService.getInstance().save(this);
     }
