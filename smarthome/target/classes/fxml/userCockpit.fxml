@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.UserCockpitController"
+            style="-fx-background-color:#f2f2f2;"
+            prefWidth="1024" prefHeight="680">
+
+    <!-- Zurück zur Startseite oben -->
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="15" right="15" bottom="0" left="30"/>
+            </padding>
+            <children>
+                <Button text="←  Zurück zur Startseite"
+                        onAction="#backToLandingPage"
+                        style="-fx-background-color:transparent; -fx-text-fill:#555555;"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="24">
+            <padding>
+                <Insets top="20" right="0" bottom="20" left="0"/>
+            </padding>
+
+            <!-- BENUTZERPROFIL-KARTE -->
+            <VBox spacing="16" alignment="TOP_LEFT"
+                  maxWidth="640"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:16;">
+                <padding>
+                    <Insets top="24" right="24" bottom="24" left="24"/>
+                </padding>
+
+                <!-- Überschrift + Untertitel -->
+                <VBox spacing="4">
+                    <children>
+                        <Label text="Benutzerprofil"
+                               style="-fx-font-size:18; -fx-font-weight:bold;"/>
+                        <Label text="Verwalten Sie Ihre Kontoinformationen"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                    </children>
+                </VBox>
+
+                <!-- Avatar, Name, Adresse, Logout -->
+                <HBox spacing="16" alignment="CENTER_LEFT">
+                    <children>
+                        <!-- Avatar-Kreis -->
+                        <StackPane prefWidth="64" prefHeight="64"
+                                   style="-fx-background-color:white; -fx-background-radius:32;">
+                            <children>
+                                <Label fx:id="avatarInitialsLabel"
+                                       text="MM"
+                                       style="-fx-font-size:20; -fx-font-weight:bold;"/>
+                            </children>
+                        </StackPane>
+
+                        <!-- Name, Mail, Adresse -->
+                        <VBox spacing="4">
+                            <children>
+                                <Label fx:id="nameLabel"
+                                       text="Max Mustermann"
+                                       style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                <Label fx:id="emailLabel"
+                                       text="max@beispiel.at"
+                                       style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                                <Label fx:id="addressLabel"
+                                       text="Musterstraße 1, 1010 Wien"
+                                       style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                            </children>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <!-- Abmelden-Button rechts -->
+                        <Button text="Abmelden"
+                                onAction="#logout"
+                                style="-fx-background-color:#333333; -fx-text-fill:white; -fx-font-size:11;"/>
+                    </children>
+                </HBox>
+
+                <!-- Standortzeile -->
+                <HBox spacing="20">
+                    <children>
+                        <Label text="Standort:"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                        <Label fx:id="locationLabel"
+                               text="48.2082°N, 16.3738°E"
+                               style="-fx-font-size:11; -fx-text-fill:#444444;"/>
+                    </children>
+                </HBox>
+
+                <!-- Profil bearbeiten-Button -->
+                <Button text="Profil bearbeiten"
+                        onAction="#editProfile"
+                        maxWidth="Infinity"
+                        style="-fx-background-color:#444444; -fx-text-fill:white; -fx-font-size:11;"/>
+            </VBox>
+
+            <!-- SMART-HOME-INFOS-KARTE -->
+            <VBox spacing="16" alignment="TOP_LEFT"
+                  maxWidth="640"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:16;">
+                <padding>
+                    <Insets top="24" right="24" bottom="24" left="24"/>
+                </padding>
+
+                <Label text="Smart Home Informationen"
+                       style="-fx-font-size:14; -fx-font-weight:bold;"/>
+
+                <!-- Grid für Benutzer-ID / Koordinaten -->
+                <GridPane hgap="40" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Linke Spalte -->
+                    <children>
+                        <Label text="Benutzer-ID:"
+                               GridPane.rowIndex="0" GridPane.columnIndex="0"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                        <Label fx:id="userIdLabel"
+                               text="0e642b2e-81cc-41b3-9e46-661b3e3bc679"
+                               wrapText="true"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"
+                               style="-fx-font-size:11; -fx-text-fill:#444444;"/>
+
+                        <Label text="Längengrad:"
+                               GridPane.rowIndex="2" GridPane.columnIndex="0"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                        <Label fx:id="longitudeLabel"
+                               text="16.3738°E"
+                               GridPane.rowIndex="3" GridPane.columnIndex="0"
+                               style="-fx-font-size:11; -fx-text-fill:#444444;"/>
+
+                        <!-- Rechte Spalte -->
+                        <Label text="Breitengrad:"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1"
+                               style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                        <Label fx:id="latitudeLabel"
+                               text="48.2082°N"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"
+                               style="-fx-font-size:11; -fx-text-fill:#444444;"/>
+                    </children>
+                </GridPane>
+
+                <!-- Info-Text unten -->
+                <Label fx:id="infoTextLabel"
+                       text="Diese Standortdaten können für Smart Home Automatisierungen wie wetterbasierte Steuerungen,
+Energieeinsparung und lokale Dienste verwendet werden."
+                       wrapText="true"
+                       style="-fx-font-size:10; -fx-text-fill:#666666;"/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

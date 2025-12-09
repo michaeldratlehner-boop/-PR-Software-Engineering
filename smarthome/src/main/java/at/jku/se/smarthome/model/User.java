@@ -1,17 +1,26 @@
 package at.jku.se.smarthome.model;
+import java.util.UUID;
 
 public class User {
+    private String id;
     private String firstName;
     private String lastName;
     private String email;     // Dient als ID beim Login
-    private String password;
+    private String passwordHash;
+    private String address;
+    private Double latitude;
+    private Double longitude;
 
     // Konstruktor
-    public User(String firstName, String lastName, String email, String password) {
+    public User(){}//State Constructor
+
+    public User(String firstName, String lastName, String email, String passwordHash, String address) {
+        this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
+        this.address = address;
     }
 
     // Getter und Setter
@@ -23,10 +32,31 @@ public class User {
 
     public String getEmail() { return email; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getPasswordHash() { return passwordHash; }
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
     public String getId() {
-        return "";
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

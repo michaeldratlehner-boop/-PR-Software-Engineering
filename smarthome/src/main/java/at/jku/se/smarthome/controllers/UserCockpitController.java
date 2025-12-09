@@ -3,6 +3,7 @@ package at.jku.se.smarthome.controllers;
 import at.jku.se.smarthome.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import at.jku.se.State.CurrentUser;
 
 public class UserCockpitController {
 
@@ -19,18 +20,17 @@ public class UserCockpitController {
 
     @FXML
     public void initialize() {
-        // Dummy-Daten (kannst du später aus deinem Modell/Service laden)
-        String firstName = "Max";
-        String lastName  = "Mustermann";
+        String firstName = CurrentUser.getCurrentUser().getFirstName();
+        String lastName  = CurrentUser.getCurrentUser().getLastName();
 
         nameLabel.setText(firstName + " " + lastName);
-        emailLabel.setText("max.mustermann@example.com");
-        addressLabel.setText("Musterstraße 1, 1010 Wien");
-        locationLabel.setText("48.2082°N, 16.3738°E");
+        emailLabel.setText(CurrentUser.getCurrentUser().getEmail());
+        addressLabel.setText(CurrentUser.getCurrentUser().getAddress());
+        locationLabel.setText(CurrentUser.getCurrentUser().getLatitude() + "°N , " + CurrentUser.getCurrentUser().getLongitude() + "°E");
 
-        userIdLabel.setText("0e642b2e-81cc-41b3-9e46-661b3e3bc679");
-        latitudeLabel.setText("48.2082°N");
-        longitudeLabel.setText("16.3738°E");
+        userIdLabel.setText(CurrentUser.getCurrentUser().getId());
+        latitudeLabel.setText(CurrentUser.getCurrentUser().getLatitude() + "°N");
+        longitudeLabel.setText(CurrentUser.getCurrentUser().getLongitude() + "°E");
 
         // Initialen für Avatar
         String initials = (firstName.substring(0,1) + lastName.substring(0,1)).toUpperCase();
@@ -39,7 +39,7 @@ public class UserCockpitController {
 
     @FXML
     private void backToLandingPage() {
-        App.setRoot("landingPage");
+        App.setRoot("dashboard");
     }
 
     @FXML

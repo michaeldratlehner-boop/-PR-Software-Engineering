@@ -5,8 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import at.jku.se.smarthome.service.UserService;
+import at.jku.se.smarthome.model.User;
+import at.jku.se.State.CurrentUser;
 
 public class LoginController {
+
+    private final UserService userService = new UserService();
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
@@ -33,15 +38,24 @@ public class LoginController {
             return;
         }
 
-        // 2. Dummy-Loginprüfung (später durch DB/Service ersetzen)
-       /* if (!(email.equals("max@beispiel.at") && password.equals("123456"))) {
-            errorLabel.setText("E-Mail oder Passwort ist falsch.");
-            return;
-        }*/
 
-        // 3. Erfolgreich
-        errorLabel.setText("");
-        App.setRoot("dashboard");
+        try{
+            // 2. Benutzer authentifizieren
+            User user = userService.loginUser(email, password);
+
+            //3 Aktuellen Benutzer setzen
+            CurrentUser.setCurrentUser(user);
+
+            //4 Erfolgreich
+            errorLabel.setText("");
+            App.setRoot("dashboard");
+
+        } catch (IllegalArgumentException e) {
+            errorLabel.setText(e.getMessage());
+            return;
+        }
+
+
     }
 
     @FXML

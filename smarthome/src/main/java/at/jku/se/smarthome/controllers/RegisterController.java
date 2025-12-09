@@ -4,7 +4,10 @@ import at.jku.se.smarthome.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.regex.Pattern;
+import at.jku.se.smarthome.service.UserService;
 public class RegisterController {
+
+    private final UserService userService = new UserService();
 
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
@@ -63,10 +66,8 @@ public class RegisterController {
         if (!password.isEmpty() && !confirm.isEmpty() && !password.equals(confirm)) {
             errors.append("Passwort und Passwortbestätigung stimmen nicht überein.\n");
         }
-
-        // Wenn Fehler vorhanden → anzeigen und abbrechen
-        if (errors.length() > 0) {
-            errorLabel.setText(errors.toString());
+        if(errors.length() > 0){ // Wenn Fehler vorhanden → anzeigen und abbrechen
+            errorLabel.setText(errors.toString().trim());
             errorLabel.setVisible(true);
             return;
         }
@@ -74,8 +75,15 @@ public class RegisterController {
         // Wenn alles ok → Fehlermeldung ausblenden und weiter
         errorLabel.setVisible(false);
 
-        System.out.println("Registrierung erfolgreich für: " + email);
-        App.setRoot("landingPage");
+        try{
+            userService.registerUser(firstName, lastName, email, password, address);
+            System.out.println("Registrierung erfolgreich für: " + email);
+            App.setRoot("landingPage");
+        } catch(IllegalArgumentException e){ // Wenn Fehler vorhanden → anzeigen und abbrechen
+            errorLabel.setText(e.getMessage());
+            errorLabel.setVisible(true);
+        }
+
     }
 
     @FXML
