@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.LandingPageController"
+            style="-fx-background-color:#f5f5f5;"
+            prefWidth="1200" prefHeight="800">
+
+    <center>
+        <!-- Hauptkarte in der Mitte -->
+        <VBox alignment="TOP_CENTER" spacing="24">
+            <padding>
+                <Insets top="40" bottom="40"/>
+            </padding>
+
+            <children>
+
+                <!-- Weiße Karte -->
+                <VBox spacing="24"
+                      maxWidth="900"
+                      style="-fx-background-color:white;
+                             -fx-background-radius:12;
+                             -fx-padding:32;">
+
+                    <!-- Header -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <children>
+                            <Label text="Willkommen zum Smart-Home-Simulator"
+                                   style="-fx-font-size:24; -fx-font-weight:bold;"/>
+
+                            <Label text="Simulieren Sie intelligente Häuser und Wohnungen virtuell. Erstellen Sie Räume, Sensoren, Geräte und definieren Sie Automatisierungen für ein smartes Zuhause."
+                                   wrapText="true"
+                                   style="-fx-font-size:12; -fx-text-fill:#777777;"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Buttons: Jetzt registrieren / Anmelden -->
+                    <HBox spacing="12" alignment="CENTER">
+                        <children>
+                            <Button text="Jetzt registrieren"
+                                    onAction="#goToRegister"
+                                    style="-fx-background-color:#2c2c2c;
+                                           -fx-text-fill:white;
+                                           -fx-padding:8 18 8 18;
+                                           -fx-background-radius:20;"/>
+
+                            <Button text="Anmelden"
+                                    onAction="#goToLogin"
+                                    style="-fx-background-color:transparent;
+                                           -fx-border-color:#2c2c2c;
+                                           -fx-border-radius:20;
+                                           -fx-padding:8 18 8 18;"/>
+                        </children>
+                    </HBox>
+
+                    <!-- Funktions-Überschrift -->
+                    <VBox spacing="4" alignment="CENTER">
+                        <children>
+                            <Label text="Funktionen"
+                                   style="-fx-font-size:18; -fx-font-weight:bold;"/>
+                            <Label text="Alles was Sie für Ihren Smart-Home-Simulator benötigen"
+                                   style="-fx-font-size:12; -fx-text-fill:#777777;"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Funktions-Kacheln (3 x 2) -->
+                    <GridPane hgap="16" vgap="16" alignment="CENTER">
+                        <!-- Spalten gleich breit -->
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="33.3"/>
+                            <ColumnConstraints percentWidth="33.3"/>
+                            <ColumnConstraints percentWidth="33.3"/>
+                        </columnConstraints>
+
+                        <!-- Zeile 1 -->
+                        <children>
+                            <!-- Räume verwalten -->
+                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Räume verwalten" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Erstellen und organisieren Sie virtuelle Räume für Ihr Smart Home."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Geräte steuern -->
+                            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Geräte steuern" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Fügen Sie Geräte hinzu und steuern Sie diese in Echtzeit."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Automatisierung -->
+                            <VBox GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Automatisierung" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Definieren Sie ‚Wenn … Dann …‘-Regeln für intelligente Abläufe."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Zeile 2 -->
+                            <!-- Sensorwerte -->
+                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Sensorwerte" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Überwachen Sie Temperatur, Helligkeit und weitere Sensordaten."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Zeitsteuerung -->
+                            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Zeitsteuerung" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Planen Sie Aktionen basierend auf Zeit und Stundenplänen."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Sicherheit -->
+                            <VBox GridPane.columnIndex="2" GridPane.rowIndex="1"
+                                  spacing="6"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:14;">
+                                <children>
+                                    <Label text="Sicherheit" style="-fx-font-size:14; -fx-font-weight:bold;"/>
+                                    <Label text="Simulieren Sie Sicherheitssysteme und Überwachung."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+                        </children>
+                    </GridPane>
+
+                    <!-- So funktioniert's -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <children>
+                            <Label text="So funktioniert’s"
+                                   style="-fx-font-size:16; -fx-font-weight:bold;"/>
+                            <Label text="In drei einfachen Schritten zu Ihrem Smart Home"
+                                   style="-fx-font-size:12; -fx-text-fill:#777777;"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Schritte 1–3 -->
+                    <HBox spacing="16" alignment="CENTER">
+                        <children>
+                            <!-- Schritt 1 -->
+                            <VBox spacing="8"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:12;">
+                                <children>
+                                    <Label text="1. Räume anlegen"
+                                           style="-fx-font-weight:bold; -fx-font-size:13;"/>
+                                    <Label text="Erstellen Sie virtuelle Räume und legen Sie die Grunddaten fest."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Schritt 2 -->
+                            <VBox spacing="8"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:12;">
+                                <children>
+                                    <Label text="2. Geräte hinzufügen"
+                                           style="-fx-font-weight:bold; -fx-font-size:13;"/>
+                                    <Label text="Fügen Sie Smart-Home-Geräte hinzu und konfigurieren Sie diese."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+
+                            <!-- Schritt 3 -->
+                            <VBox spacing="8"
+                                  style="-fx-background-color:#f9f9f9;
+                                         -fx-background-radius:10;
+                                         -fx-padding:12;">
+                                <children>
+                                    <Label text="3. Regeln definieren"
+                                           style="-fx-font-weight:bold; -fx-font-size:13;"/>
+                                    <Label text="Erstellen Sie Automatisierungen auf Basis von Sensoren, Zeit oder Ereignissen."
+                                           wrapText="true"
+                                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
