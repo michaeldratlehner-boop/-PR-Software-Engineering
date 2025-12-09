@@ -11,10 +11,6 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="at.jku.se.smarthome.controllers.DashboardController"
             fx:id="dashboardRoot">
-    <stylesheets>
-        <!-- von /resources/fxml/ eine Ebene hoch zu /resources und dann in css -->
-        <String fx:value="@../css/styles.css"/>
-    </stylesheets>
 
     <center>
         <VBox spacing="30" alignment="TOP_CENTER" BorderPane.alignment="CENTER">
@@ -111,9 +107,12 @@
             <!-- FUNKTIONSKACHELN -->
             <GridPane hgap="25" vgap="25" alignment="CENTER">
 
-                <!-- 1 -->
-                <VBox style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
+                <!-- 1: Gebäude hinzufügen -->
+                <VBox fx:id="addBuildingCard"
+                      onMouseClicked="#goCreateBuilding"
+                      style="-fx-background-color: white; -fx-background-radius: 12;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);
+             -fx-cursor: hand;"
                       prefWidth="260" prefHeight="140" spacing="8">
                     <padding>
                         <Insets top="20" left="20" right="20"/>
@@ -122,6 +121,7 @@
                     <Label text="Erstellen und organisieren Sie virtuelle Gebäude für Ihr Smart Home"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
+
 
                 <!-- 2 -->
                 <VBox GridPane.columnIndex="1" style="-fx-background-color: white; -fx-background-radius: 12;

@@ -50,4 +50,9 @@ public class DashboardController {
         App.setRoot("userCockpit");  // userCockpit.fxml laden
     }
 
+    @FXML
+    private void goCreateBuilding() {
+        App.setRoot("createBuilding");  // createBuilding.fxml laden
+    }
+
 }
