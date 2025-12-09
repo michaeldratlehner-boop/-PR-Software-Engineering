@@ -53,6 +53,11 @@
                 <Button text="Anmelden" onAction="#login"
                         maxWidth="Infinity"
                         style="-fx-background-color:#333333; -fx-text-fill:white;"/>
+                <!-- Fehler-Ausgabe -->
+                <Label fx:id="errorLabel"
+                       textFill="red"
+                       style="-fx-font-size:11;"
+                       wrapText="true"/>
 
                 <!-- Registrierung-Link -->
                 <Button text="Noch kein Konto? jetzt registrieren"
@@ -73,7 +78,7 @@
             <children>
                 <Button text="←  Zurück zur Startseite"
                         style="-fx-background-color:transparent;"
-                        onAction="#backToStart"/>
+                        onAction="#backToLandingPage"/>
             </children>
         </HBox>
     </bottom>

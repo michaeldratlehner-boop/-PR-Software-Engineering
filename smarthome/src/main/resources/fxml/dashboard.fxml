@@ -10,7 +10,12 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="at.jku.se.smarthome.controllers.DashboardController"
-            style="-fx-background-color: #F5F5F5;">
+            fx:id="dashboardRoot">
+    <stylesheets>
+        <!-- von /resources/fxml/ eine Ebene hoch zu /resources und dann in css -->
+        <String fx:value="@../css/styles.css"/>
+    </stylesheets>
+
     <center>
         <VBox spacing="30" alignment="TOP_CENTER" BorderPane.alignment="CENTER">
             <padding>

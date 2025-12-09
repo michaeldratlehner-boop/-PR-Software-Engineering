@@ -21,10 +21,15 @@ public class DashboardController {
     }
 
 
-    @FXML
+   @FXML
     private void goDashboard(){
         App.setRoot("dashboard");
     }
+    @FXML
+    private void goLandingPage() { //testmichi
+        App.setRoot("landingPage");
+    }
+
     @FXML
     private void goRooms(){
         App.setRoot("rooms");

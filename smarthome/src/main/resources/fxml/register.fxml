@@ -10,51 +10,148 @@
             style="-fx-background-color:#f2f2f2;"
             prefWidth="820" prefHeight="640">
 
+    <!-- zentrierte Karte in der Mitte -->
     <center>
         <VBox alignment="TOP_CENTER" spacing="20"
               style="-fx-background-color:#e0e0e0; -fx-background-radius:20;"
               maxWidth="400">
-            <!-- padding HIER über Insets -->
             <padding>
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
 
             <children>
-                <Label text="Benutzer registrieren" style="-fx-font-size:24; -fx-font-weight:bold;"/>
 
-                <Label text="Erstellen Sie Ihr Smart Home Konto" style="-fx-font-size:11;"/>
-
-                <VBox spacing="8" alignment="CENTER">
+                <!-- Titel -->
+                <VBox alignment="CENTER" spacing="4">
                     <children>
-                        <Button text="Bild hochladen" fx:id="uploadBtn"/>
+                        <Label text="Benutzer registrieren"
+                               style="-fx-font-size:24; -fx-font-weight:bold;"/>
+                        <Label text="Erstellen Sie Ihr Smart Home Konto"
+                               style="-fx-font-size:11; -fx-text-fill:#555555;"/>
                     </children>
                 </VBox>
 
+                <!-- Kreis mit Upload-Icon / Button -->
+                <VBox alignment="CENTER" spacing="6">
+                    <children>
+                        <StackPane prefWidth="80" prefHeight="80"
+                                   style="-fx-background-color:white; -fx-background-radius:40;">
+                            <children>
+                                <Label text="↑"
+                                       style="-fx-font-size:26; -fx-text-fill:#444444;"/>
+                            </children>
+                        </StackPane>
+                        <Button text="Bild hochladen"
+                                fx:id="uploadBtn"
+                                style="-fx-background-color:transparent; -fx-text-fill:#333333;"/>
+                    </children>
+                </VBox>
+
+                <!-- Formularbereich wie im Screenshot -->
                 <GridPane hgap="10" vgap="10">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50"/>
                         <ColumnConstraints percentWidth="50"/>
                     </columnConstraints>
 
-                    <!-- ... dein restliches Grid unverändert ... -->
-                    <!-- (Labels, TextFields, PasswordFields) -->
+                    <!-- Vorname -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <children>
+                            <Label text="Vorname *" style="-fx-font-size:11;"/>
+                            <TextField fx:id="firstNameField"
+                                       promptText="Max"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Nachname -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <children>
+                            <Label text="Nachname *" style="-fx-font-size:11;"/>
+                            <TextField fx:id="lastNameField"
+                                       promptText="Mustermann"/>
+                        </children>
+                    </VBox>
+
+                    <!-- E-Mail-Adresse (über beide Spalten) -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="0" GridPane.rowIndex="1"
+                          GridPane.columnSpan="2">
+                        <children>
+                            <Label text="E-Mail-Adresse *" style="-fx-font-size:11;"/>
+                            <TextField fx:id="emailField"
+                                       promptText="max@beispiel.de"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Adresse (über beide Spalten) -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="0" GridPane.rowIndex="2"
+                          GridPane.columnSpan="2">
+                        <children>
+                            <Label text="Adresse *" style="-fx-font-size:11;"/>
+                            <TextField fx:id="addressField"
+                                       promptText="Musterstraße 1, 1010 Wien"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Passwort -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="0" GridPane.rowIndex="3"
+                          GridPane.columnSpan="2">
+                        <children>
+                            <Label text="Passwort *" style="-fx-font-size:11;"/>
+                            <PasswordField fx:id="passwordField"
+                                           promptText="********"/>
+                        </children>
+                    </VBox>
+
+                    <!-- Passwort bestätigen -->
+                    <VBox spacing="3"
+                          GridPane.columnIndex="0" GridPane.rowIndex="4"
+                          GridPane.columnSpan="2">
+                        <children>
+                            <Label text="Passwort bestätigen *" style="-fx-font-size:11;"/>
+                            <PasswordField fx:id="confirmPasswordField"
+                                           promptText="********"/>
+                        </children>
+                    </VBox>
+
                 </GridPane>
 
-                <Button text="Registrieren" onAction="#register" maxWidth="Infinity"
-                        style="-fx-background-color:#333; -fx-text-fill:white;"/>
+                <!-- Registrieren-Button -->
+                <Button text="Registrieren"
+                        onAction="#register"
+                        maxWidth="Infinity"
+                        style="-fx-background-color:#333333; -fx-text-fill:white; -fx-font-size:12;"/>
 
-                <Label text="Bereits registriert? Jetzt anmelden" style="-fx-font-size:11;"/>
+                <!-- Fehler-Label für Validierungen -->
+                <Label fx:id="errorLabel"
+                       style="-fx-text-fill: red; -fx-font-size: 11;"
+                       wrapText="true"
+                       visible="false" />
+
+                <!-- Link: Bereits registriert? Jetzt anmelden -->
+                <Button text="Bereits registriert? Jetzt anmelden"
+                        onAction="#goToLogin"
+                        style="-fx-background-color:transparent; -fx-text-fill:#444444; -fx-font-size:11;"
+                        underline="true"/>
+
             </children>
         </VBox>
     </center>
 
+    <!-- Unterer Bereich: Zurück zur Startseite -->
     <bottom>
         <HBox alignment="CENTER_LEFT">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <children>
-                <Button text="← Zurück zur Startseite" onAction="#backToLogin"/>
+                <Button text="←  Zurück zur Startseite"
+                        onAction="#backToLogin"
+                        style="-fx-background-color:transparent; -fx-text-fill:#444444;"/>
             </children>
         </HBox>
     </bottom>
