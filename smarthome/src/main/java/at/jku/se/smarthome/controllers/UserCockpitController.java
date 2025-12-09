@@ -19,7 +19,7 @@ public class UserCockpitController {
 
     @FXML
     public void initialize() {
-        // Dummy-Daten (kannst du später aus deinem Modell/Service laden)
+        // Dummy-Daten
         String firstName = "Max";
         String lastName  = "Mustermann";
 
@@ -38,8 +38,8 @@ public class UserCockpitController {
     }
 
     @FXML
-    private void backToLandingPage() {
-        App.setRoot("landingPage");
+    private void backToDashboard() {
+        App.setRoot("dashboard");
     }
 
     @FXML
