@@ -13,6 +13,11 @@ public abstract class SmartDevice {
     public String getName() { return name; }
     public boolean isOn() { return isOn; }
 
+    public String getRoomId() {return "";} //Implementierung fehlt noch
+
+    public String getId() { return id; }
+
+
     // Jedes Gerät muss sagen können, wie sein Status ist
     public abstract String getStatus();
 }
