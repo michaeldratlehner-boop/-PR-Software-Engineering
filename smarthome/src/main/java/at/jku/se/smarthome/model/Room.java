@@ -3,6 +3,7 @@ package at.jku.se.smarthome.model;
 public class Room {
     private String name;
     private double sizeSquareMeters;
+    private String id;
 
     public Room(String name, double sizeSquareMeters) {
         this.name = name;

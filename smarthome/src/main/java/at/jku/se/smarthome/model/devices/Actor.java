@@ -13,4 +13,5 @@ public abstract class Actor extends SmartDevice {
     public String getStatus() {
         return name + " ist " + (isOn ? "AN" : "AUS");
     }
+
 }

@@ -3,6 +3,7 @@ package at.jku.se.State;
 import at.jku.se.smarthome.model.House;
 import at.jku.se.smarthome.model.Room;
 import at.jku.se.smarthome.model.User;
+import at.jku.se.smarthome.model.devices.*;
 
 import java.util.*;
 
@@ -10,6 +11,8 @@ public class AppState {
     private Map<String, User> users = new HashMap<>();
     private Map<String, House> houses = new HashMap<>();
     private Map<String, Room> rooms = new HashMap<>();
+    private Map<String, Sensor> sensors = new HashMap<>();
+    private Map<String, Object> actors = new HashMap<>();
 
     public AppState() {
     }
@@ -38,6 +41,14 @@ public class AppState {
     public void setRooms(Map<String, Room> rooms) {
         this.rooms = rooms;
     }
+
+    public Map<String, Sensor> getSensors() {return sensors;}
+
+    public void setSensors(Map<String, Sensor> sensors) {this.sensors = sensors;}
+
+    public Map<String, Object> getActors() {return actors;}
+
+    public void setActors(Map<String, Object> actors) {this.actors = actors;}
 
     //User methods
     public User getUser(String id) {
@@ -76,9 +87,11 @@ public class AppState {
     public Room getRoom(String id) {
         return rooms.get(id);
     }
+
     public Collection<Room> getAllRooms() {
         return rooms.values();
     }
+
     public List<Room> getRoomsByHouseId(String houseId) {
         List<Room> result = new ArrayList<>();
         for (Room room : rooms.values()) {
@@ -96,6 +109,56 @@ public class AppState {
         rooms.remove(id);
         save();
     }
+
+    //Sensor methods
+    public Sensor getSensor(String id) {
+        return sensors.get(id);
+    }
+
+    public Collection<Sensor> getAllSensors() {
+        return sensors.values();
+    }
+
+    public Collection<Sensor> getAllSensorsByRoomId(String roomId) {
+        List<Sensor> result = new ArrayList<>();
+        for (Sensor sensor : sensors.values()) {
+            if(sensor.getRoomId().equals(roomId)) {
+                result.add(sensor);
+            }
+        }
+        return result;
+    }
+
+    public void saveSensor(Sensor sensor) {
+        sensors.put(sensor.getId(), sensor);
+        save();
+    }
+
+    public void deleteSensor(String id) {
+        sensors.remove(id);
+        save();
+    }
+
+    //Actor methods
+    public Object getActor(String id) {
+        return actors.get(id);
+    }
+
+    public Collection<Object> getAllActors() {
+        return actors.values();
+    }
+
+    public void saveActor(Actor actor) {
+        actors.put(actor.getId(), actor);
+        save();
+    }
+
+    public void deleteActor(String id) {
+        actors.remove(id);
+        save();
+    }
+
+
     // Save the current state to State
     private void save() {
         JsonStateService.getInstance().save(this);
