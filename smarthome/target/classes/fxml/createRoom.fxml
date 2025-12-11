@@ -6,7 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="at.jku.se.smarthome.controllers.CreateRoomController"
+            fx:controller="at.jku.se.smarthome.controllers.RoomController"
             style="-fx-background-color:#f2f2f2;"
             prefWidth="820" prefHeight="640">
 
@@ -43,12 +43,15 @@
                         <!-- Überschrift -->
                         <VBox spacing="4" alignment="CENTER_LEFT">
                             <children>
-                                <Label text="Raum hinzufügen"
+                                <Label fx:id="titleLabel"
+                                       text="Raum hinzufügen"
                                        style="-fx-font-size:18; -fx-font-weight:bold;"/>
-                                <Label text="Fügen Sie Ihrem Haus oder Wohnung einen Raum hinzu"
+                                <Label fx:id="subtitleLabel"
+                                       text="Fügen Sie Ihrem Haus oder Wohnung einen Raum hinzu"
                                        style="-fx-font-size:11; -fx-text-fill:#666666;"/>
                             </children>
                         </VBox>
+
 
                         <!-- Formular -->
                         <VBox spacing="12" maxWidth="Infinity">

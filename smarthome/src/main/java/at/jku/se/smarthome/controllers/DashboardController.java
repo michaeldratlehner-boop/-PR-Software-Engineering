@@ -41,12 +41,13 @@ public class DashboardController {
         int count = Integer.parseInt(buildingsCount.getText());
 
         if (count == 0) {
-            // noch keine Gebäude → direkt zur "Gebäude erstellen"-Seite
-            App.setRoot("createBuilding");     // createBuilding.fxml
+            // noch keine Gebäude → direkt Formular
+            BuildingController.viewMode = BuildingController.ViewMode.CREATE;
         } else {
-            // es gibt schon Gebäude → Liste der angelegten Gebäude anzeigen
-            App.setRoot("buildingList");       // buildingList.fxml
+            // es gibt schon Gebäude → Liste anzeigen
+            BuildingController.viewMode = BuildingController.ViewMode.LIST;
         }
+        App.setRoot("buildingCockpit"); // building.fxml
     }
 
    @FXML
@@ -78,17 +79,20 @@ public class DashboardController {
 
     @FXML
     private void goCreateBuilding() {
-        App.setRoot("createBuilding");  // createBuilding.fxml laden
+        BuildingController.viewMode = BuildingController.ViewMode.CREATE;
+        App.setRoot("buildingCockpit");  // building.fxml laden
     }
+    @FXML
+    private void goBuildingCockpit() {
+        BuildingController.viewMode = BuildingController.ViewMode.LIST;
+        App.setRoot("buildingCockpit");  // buildingCockpit.fxml laden
+    }
+
 
     @FXML
     private void goCreateRoom() {
+        RoomController.editMode = false;// Edit-Modus deaktivieren
         App.setRoot("createRoom");  // createRoom.fxml laden
-    }
-
-    @FXML
-    private void goBuildingCockpit() {
-        App.setRoot("buildingCockpit");  // buildingCockpit.fxml laden
     }
 
     @FXML
@@ -96,5 +100,16 @@ public class DashboardController {
         App.setRoot("roomCockpit");  // roomCockpit.fxml laden
     }
 
+    @FXML
+    private void goDeviceCockpit() {
+        DeviceController.viewMode = DeviceController.ViewMode.LIST;
+        App.setRoot("deviceCockpit");   // deviceCockpit.fxml
+    }
+
+    @FXML
+    private void goCreateDevice() {
+        DeviceController.viewMode = DeviceController.ViewMode.CREATE;
+        App.setRoot("deviceCockpit");
+    }
 
 }

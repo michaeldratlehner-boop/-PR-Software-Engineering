@@ -81,6 +81,7 @@
 
                 <!-- Geräte -->
                 <VBox fx:id="devicesCard" alignment="CENTER" spacing="6"
+                      onMouseClicked="#goDeviceCockpit"
                       style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="150" prefHeight="100">
@@ -162,17 +163,22 @@
                 </VBox>
 
 
-                <!--Geräte hinzufügen-->
-                <VBox   GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
+                <!-- Geräte hinzufügen -->
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="2"
+                      onMouseClicked="#goCreateDevice"
+                      style="-fx-background-color: white; -fx-background-radius: 12;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="260" prefHeight="140" spacing="8">
+
                     <padding>
                         <Insets top="20" left="20" right="20"/>
                     </padding>
+
                     <Label text="Geräte hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Fügen Sie Geräte hinzu und steuern Sie diese in Echtzeit"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
+
 
                 <!-- Automatisierung hinzufügen -->
                 <VBox   GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-background-color: white; -fx-background-radius: 12;

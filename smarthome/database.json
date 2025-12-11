@@ -1,0 +1,16 @@
+{
+  "users": {
+    "b6a7866f-6f1e-436c-abe5-41ba2895d936": {
+      "id": "b6a7866f-6f1e-436c-abe5-41ba2895d936",
+      "firstName": "M",
+      "lastName": "D",
+      "email": "md@gmx.at",
+      "passwordHash": "$2a$12$OcohEvno2N4cFRoIplhwR.l7VrC5CVg8O.693c9uyPqaRVhxYy6Ce",
+      "address": "random",
+      "latitude": -2.3550671,
+      "longitude": 116.5244293
+    }
+  },
+  "houses": {},
+  "rooms": {}
+}
