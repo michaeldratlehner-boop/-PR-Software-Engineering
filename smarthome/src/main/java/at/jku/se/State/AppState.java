@@ -72,13 +72,41 @@ public class AppState {
     public House getHouse(String id) {
         return houses.get(id);
     }
+
     public Collection<House> getAllHouses() {
         return houses.values();
     }
+
+    public List<House> getAllHousesForUser(User user) {
+        List<House> result = new ArrayList<>();
+
+        if(user.getHouseId() != null) {
+            House house = houses.get(user.getHouseId());
+            if(house != null) {
+                result.add(house);
+            }
+        }
+        return result;
+    }
+
     public void saveHouse(House house) {
         houses.put(house.getId(), house);
         save();
     }
+
+    public String nextHouseId() {
+        long maxId = 0;
+        for (String key : houses.keySet()) {
+            if (key != null && key.matches("\\d+")) {
+                long id = Long.parseLong(key);
+                if (id > maxId) {
+                    maxId = id;
+                }
+            }
+        }
+        return Long.toString(maxId + 1);
+    }
+
     public void deleteHouse(String id) {
         houses.remove(id);
         save();

@@ -8,6 +8,7 @@ public class User {
     private String email;     // Dient als ID beim Login
     private String passwordHash;
     private String address;
+    private String houseId;
     private Double latitude;
     private Double longitude;
 
@@ -46,6 +47,13 @@ public class User {
         this.address = address;
     }
 
+    public String getHouseId() {
+        return houseId;
+    }
+    public void setHouseId(String houseId) {
+        this.houseId = houseId;
+    }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -59,4 +67,6 @@ public class User {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
+
+
 }
