@@ -1,6 +1,13 @@
 package at.jku.se.smarthome.controllers;
 
+import at.jku.se.State.AppState;
+import at.jku.se.State.CurrentHouse;
+import at.jku.se.State.CurrentUser;
+import at.jku.se.State.JsonStateService;
 import at.jku.se.smarthome.App;
+import at.jku.se.smarthome.model.House;
+import at.jku.se.smarthome.model.User;
+import at.jku.se.smarthome.service.HouseService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -9,8 +16,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
+
 
 public class BuildingController {
+
+    private final HouseService houseService = new HouseService();
 
     public enum ViewMode {
         LIST,    // Liste der Gebäude
@@ -49,13 +60,13 @@ public class BuildingController {
     public void initialize() {
         // Dummy-Daten für Smart Home Informationen
         if (userIdLabel != null) {
-            userIdLabel.setText("0e6422ba-98cc-41bb-9e4d-6b1e3b5ceb79");
+            userIdLabel.setText(CurrentUser.getCurrentUser().getId());
         }
         if (latitudeLabel != null) {
-            latitudeLabel.setText("48.158931");
+            latitudeLabel.setText("-" + "°N");
         }
         if (longitudeLabel != null) {
-            longitudeLabel.setText("14.018111");
+            longitudeLabel.setText("-" + "°E");
         }
 
         if (floorsField != null &&
@@ -88,6 +99,50 @@ public class BuildingController {
 
         formCard.setVisible(false);
         formCard.setManaged(false);
+
+        buildingsListBox.getChildren().clear();
+
+        AppState state = JsonStateService.getInstance().load();
+        User user = CurrentUser.getCurrentUser();
+
+        List<House> houses = state.getAllHousesForUser(user);
+
+        if(houses.isEmpty()) {
+            Label empty = new Label("Keine Gebäude vorhanden.");
+            buildingsListBox.getChildren().add(empty);
+            return;
+        }
+
+        for (House house : houses) {
+            buildingsListBox.getChildren().add(createHouseRow(house));
+        }
+
+
+    }
+
+    private HBox createHouseRow(House house) {
+        Label nameLabel = new Label(house.getName());
+        Button edit = new Button("Bearbeiten");
+        Button delete = new Button("Löschen");
+        Button share = new Button("Freigeben");
+
+        edit.setOnAction(e -> {
+            CurrentHouse.setCurrentHouse(house);
+            viewMode = ViewMode.EDIT;
+            updateView();
+        });
+        delete.setOnAction(e -> {
+            CurrentHouse.setCurrentHouse(house);
+            deleteBuilding(e);
+        });
+
+        share.setOnAction(e -> {
+            System.out.println("Gebäude freigeben: " + house.getName());
+        });
+
+        HBox row = new HBox(10, nameLabel, edit, share, delete);
+        return row;
+
     }
 
     private void showForm(boolean edit) {
@@ -100,7 +155,15 @@ public class BuildingController {
         if (edit) {
             formTitleLabel.setText("Gebäude bearbeiten");
             formSubtitleLabel.setText("Bearbeiten Sie die Daten Ihres Gebäudes");
-            // TODO: später hier das ausgewählte Gebäude in die Felder laden
+            House current = CurrentHouse.getCurrentHouse();
+            if (current != null) {
+                latitudeLabel.setText(current.getLatitude() + "°N");
+                longitudeLabel.setText(current.getLongitude() + "°E");
+                // Formular mit Daten des aktuellen Gebäudes füllen
+                nameField.setText(current.getName());
+                floorsField.setText(String.valueOf(current.getFloors()));
+                addressField.setText(current.getAddress());
+            }
         } else {
             formTitleLabel.setText("Gebäude erstellen");
             formSubtitleLabel.setText("Fügen Sie Ihr Haus oder Wohnung hinzu");
@@ -126,20 +189,36 @@ public class BuildingController {
         String name = nameField.getText();
         String floors = floorsField.getText();
         String address = addressField.getText();
-
+        try{
         if (viewMode == ViewMode.EDIT) {
-            System.out.println("Gebäude aktualisieren:");
+            House current = CurrentHouse.getCurrentHouse();
+            if(current == null){
+                throw new IllegalStateException("Kein Gebäude zum Bearbeiten ausgewählt.");
+            }
+            House updatedHouse = houseService.updateHouse(
+                    current.getId(),
+                    nameField.getText(),
+                    Integer.parseInt(floorsField.getText()),
+                    addressField.getText()
+            );
+            CurrentHouse.setCurrentHouse(updatedHouse);
+            System.out.println("Gebäude aktualisieren: "+updatedHouse.getId());
         } else {
-            System.out.println("Gebäude speichern:");
+            House createdHouse = houseService.createHouse(name, Integer.parseInt(floors), address);
+            CurrentHouse.setCurrentHouse(createdHouse);
+            System.out.println("Gebäude mit Id gespeichert: "+createdHouse.getId());
         }
 
-        System.out.println("Name: " + name);
-        System.out.println("Stockwerke: " + floors);
-        System.out.println("Adresse: " + address);
+//        System.out.println("Name: " + name);
+//        System.out.println("Stockwerke: " + floors);
+//        System.out.println("Adresse: " + address);
 
         // Verhalten wie bisher:
         // nach Speichern zurück zum Dashboard
         App.setRoot("dashboard");
+        }    catch(Exception e){
+        System.out.println("Fehler beim Speichern des Gebäudes: "+e.getMessage());
+        }
     }
 
     @FXML

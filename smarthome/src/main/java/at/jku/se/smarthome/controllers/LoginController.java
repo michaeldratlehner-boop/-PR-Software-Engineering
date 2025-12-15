@@ -40,13 +40,11 @@ public class LoginController {
 
 
         try{
-            // 2. Benutzer authentifizieren
+            // 2. Benutzer authentifizieren und setzen
             User user = userService.loginUser(email, password);
 
-            //3 Aktuellen Benutzer setzen
-            CurrentUser.setCurrentUser(user);
 
-            //4 Erfolgreich
+            //3. Erfolgreich
             errorLabel.setText("");
             App.setRoot("dashboard");
 

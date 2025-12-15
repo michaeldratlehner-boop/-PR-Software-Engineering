@@ -38,6 +38,13 @@ public class UserService {
         for(User user : state.getAllUsers()) {
             if(user.getEmail().equalsIgnoreCase(email)) {
                 if(PasswordHasher.checkPassword(password, user.getPasswordHash())) {
+
+                    CurrentUser.setCurrentUser(user);
+                    if(user.getHouseId() != null) {
+                        CurrentHouse.setCurrentHouse(state.getHouse(user.getHouseId()));
+                    }else{
+                        CurrentHouse.setCurrentHouse(null);
+                    }
                     return user;
                 } else {
                     break;

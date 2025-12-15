@@ -1,6 +1,9 @@
 package at.jku.se.smarthome.controllers;
 
+import at.jku.se.State.AppState;
+import at.jku.se.State.JsonStateService;
 import at.jku.se.smarthome.App;
+import at.jku.se.smarthome.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import at.jku.se.State.CurrentUser;
@@ -23,12 +26,22 @@ public class DashboardController {
         devicesCount.setText("0");
         rulesCount.setText("0");
         sensorsCount.setText("0");
+
+        // Gebäude-Anzahl aus State berechnen
+        int buildingCount = getBuildngCount();
+        buildingsCount.setText(String.valueOf(buildingCount));
+
         // Optional: "Gebäude hinzufügen"-Kachel nur zeigen, wenn 0 Gebäude
-        updateAddBuildingVisibility();
+        updateAddBuildingVisibility(buildingCount);
     }
-    private void updateAddBuildingVisibility() {
-        int count = Integer.parseInt(buildingsCount.getText());
-        boolean showAdd = (count == 0);
+    private int getBuildngCount(){
+        AppState state = JsonStateService.getInstance().load();
+        User user = CurrentUser.getCurrentUser();
+        return state.getAllHousesForUser(user).size();
+    }
+
+    private void updateAddBuildingVisibility(int buildingCount) {
+        boolean showAdd = (buildingCount == 0);
         if (addBuildingCard != null) {
             addBuildingCard.setVisible(showAdd);
             addBuildingCard.setManaged(showAdd);
@@ -38,7 +51,7 @@ public class DashboardController {
     // Wird von onMouseClicked der Gebäude-Kachel aufgerufen
     @FXML
     private void openBuildings() {
-        int count = Integer.parseInt(buildingsCount.getText());
+        int count = getBuildngCount();
 
         if (count == 0) {
             // noch keine Gebäude → direkt Formular
