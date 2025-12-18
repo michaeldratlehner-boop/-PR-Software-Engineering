@@ -11,6 +11,7 @@
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/LoginController.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RegisterController.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/ShareHouseController.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserCockpitController.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserProfileEditController.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/House.java
@@ -21,6 +22,7 @@
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/SmartDevice.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/GeocodingService.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseShareService.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/PasswordHasher.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/SimulationService.java
 /Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/UserService.java

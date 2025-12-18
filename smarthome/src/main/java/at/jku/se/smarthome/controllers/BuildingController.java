@@ -137,6 +137,7 @@ public class BuildingController {
         });
 
         share.setOnAction(e -> {
+            App.setRoot("shareHouse");
             System.out.println("Gebäude freigeben: " + house.getName());
         });
 

@@ -2,7 +2,11 @@ package at.jku.se.smarthome.service;
 
 import at.jku.se.State.*;
 import at.jku.se.smarthome.model.House;
+import at.jku.se.smarthome.model.Room;
 import at.jku.se.smarthome.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HouseService {
     private final JsonStateService jsonStateService = JsonStateService.getInstance();
