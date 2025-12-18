@@ -10,18 +10,20 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     private static Stage primaryStage;
+    private static Scene scene;
 
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
 
-        //fake Login für die Entwicklung
-        User demo = new User();
-        demo.setFirstName("Michael");
-        demo.setLastName("Drahtlehner");
-        CurrentUser.setCurrentUser(demo);
-
-        setRoot("dashboard"); //von vorne mit "landingPAge" starten
+//        //fake Login für die Entwicklung
+//        User demo = new User();
+//        demo.setFirstName("Michael");
+//        demo.setLastName("Drahtlehner");
+//        CurrentUser.setCurrentUser(demo);
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/landingPage.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        primaryStage.setScene(scene);
         stage.setTitle("Smarthome Simulator");
         stage.show();
     }
@@ -29,8 +31,8 @@ public class App extends Application {
     public static void setRoot(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
-            Scene scene = new Scene(loader.load());
-            primaryStage.setScene(scene);
+            scene.setRoot(loader.load());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

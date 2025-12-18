@@ -10,6 +10,7 @@ import java.util.*;
 public class AppState {
     private Map<String, User> users = new HashMap<>();
     private Map<String, House> houses = new HashMap<>();
+    private Map<String, Map<String, String>> houseShares = new  HashMap<>();
     private Map<String, Room> rooms = new HashMap<>();
     private Map<String, Sensor> sensors = new HashMap<>();
     private Map<String, Object> actors = new HashMap<>();
@@ -49,6 +50,14 @@ public class AppState {
     public Map<String, Object> getActors() {return actors;}
 
     public void setActors(Map<String, Object> actors) {this.actors = actors;}
+
+    public Map<String, Map<String, String>> getHouseShares() {
+        return houseShares;
+    }
+
+    public void setHouseShares(Map<String, Map<String, String>> houseShares) {
+        this.houseShares = houseShares;
+    }
 
     //User methods
     public User getUser(String id) {
@@ -111,6 +120,22 @@ public class AppState {
         houses.remove(id);
         save();
     }
+
+    //HouseShare methods
+    public List<String> getSharedUsersEmailsForHouse(String houseId) {
+        List<String> result = new ArrayList<>();
+        Map<String, String> shares = houseShares.get(houseId);
+        if (shares != null) {
+            for (String userId : shares.keySet()) {
+                User user = users.get(userId);
+                if (user != null && user.getEmail() != null) {
+                    result.add(user.getEmail());
+                }
+            }
+        }
+        return result;
+    }
+
     //Room methods
     public Room getRoom(String id) {
         return rooms.get(id);
