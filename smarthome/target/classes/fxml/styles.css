@@ -1,0 +1,101 @@
+/*Hintergrundfarbe der Seite*/
+.page{
+    -fx-background-color: white;
+    -fx-background: white;
+}
+
+/*Back Link*/
+.back-link{
+    -fx-text-fill: #111;
+    -fx-font-size: 13;
+    -fx-underline: false;
+}
+
+.back-link:focused{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.back-link:hover {
+    -fx-underline: true;
+}
+
+/*Graues Feld*/
+.card{
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 28;
+    -fx-padding: 26;
+}
+
+/*Titel Text*/
+.title{
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111;
+}
+
+/*Untertitel Text*/
+.subtitle{
+    -fx-font-size: 11;
+    -fx-text-fill: #111;
+}
+
+/*Textfeld*/
+.field{
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+}
+
+/*Primary Button*/
+.primary-button{
+    -fx-background-color: #2F2F2F;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 10 18 10 18;
+}
+
+/*ListView - clean background*/
+.acces-list{
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 6 0 0 0;
+}
+
+/*Remove the default list cell background*/
+.acces-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 6 0 0 0;
+}
+
+/* Our custom row container (HBox inside cell) */
+.access-cell {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 12;
+    -fx-border-color: #222;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 10 14 10 14;
+}
+
+/* Email text in row */
+.access-email {
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+    -fx-text-fill: #111;
+}
+
+/* X button */
+.access-remove-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #222;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+}
+
+
+

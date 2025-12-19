@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.jku.se.smarthome.controllers.ShareHouseController"
+            stylesheets="@styles.css"
+            styleClass="page">
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    styleClass="page">
+            <content>
+
+                <VBox spacing="24"
+                      alignment="TOP_CENTER"
+                      styleClass="page">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <!-- Zurück -->
+                    <HBox alignment="CENTER_LEFT" maxWidth="900" prefWidth="900">
+                        <Hyperlink fx:id="backLink"
+                                   text="← Zurück zur Startseite"
+                                   onAction="#onBack"
+                                   styleClass="back-link"/>
+                    </HBox>
+
+                    <VBox spacing="24" alignment="TOP_CENTER" maxWidth="900" prefWidth="900">
+
+                        <!-- CARD 1: Invite -->
+                        <VBox spacing="10" styleClass="card">
+
+                            <Label text="Personen einladen" styleClass="title"/>
+
+                            <Label text="Einladen der Person mittels E-Mail"
+                                   styleClass="subtitle"/>
+
+                            <VBox spacing="8">
+                                <padding>
+                                    <Insets top="10" right="0" bottom="0" left="0"/>
+                                </padding>
+                                <Label text="E-Mail des Nutzers eingeben *"
+                                       styleClass="subtitle"/>
+
+                                <TextField fx:id="emailField"
+                                           promptText="max.mustermann@beispiel.at"
+                                           styleClass="field"/>
+                            </VBox>
+
+                            <HBox alignment="CENTER">
+                                <padding>
+                                    <Insets top="18" right="0" bottom="0" left="0"/>
+                                </padding>
+                                <Button fx:id="inviteButton"
+                                        text="Einladen"
+                                        onAction="#onInvite"
+                                        styleClass="primary-btn"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- CARD 2: List -->
+                        <VBox spacing="10" styleClass="card">
+
+                            <Label text="Liste der freigegebenen&#10;Personen"
+                                   styleClass="title"/>
+
+                            <Label text="Liste mit allen freigegebenen Personen"
+                                   styleClass="subtitle"/>
+
+                            <ListView fx:id="accessList"
+                                      prefHeight="260"
+                                      styleClass="access-list"/>
+                        </VBox>
+
+                    </VBox>
+                </VBox>
+
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
