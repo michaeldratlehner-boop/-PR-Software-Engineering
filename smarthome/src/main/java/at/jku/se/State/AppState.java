@@ -15,6 +15,7 @@ public class AppState {
     private Map<String, Room> rooms;
     private Map<String, SmartDevice> sensors;
     private Map<String, SmartDevice> actors;
+    private Map<String, Map<String, String>> houseShares = new  HashMap<>();
 
     private AppState() {
         users = new HashMap<>();
@@ -204,5 +205,25 @@ public class AppState {
 
     private void save() {
         JsonStateService.getInstance().save(this);
+    }
+    public Map<String, Map<String, String>> getHouseShares() {
+        return houseShares;
+    }
+
+    public void setHouseShares(Map<String, Map<String, String>> houseShares) {
+        this.houseShares = houseShares;
+    }
+    public List<String> getSharedUsersEmailsForHouse(String houseId) {
+        List<String> result = new ArrayList<>();
+        Map<String, String> shares = houseShares.get(houseId);
+        if (shares != null) {
+            for (String userId : shares.keySet()) {
+                User user = users.get(userId);
+                if (user != null && user.getEmail() != null) {
+                    result.add(user.getEmail());
+                }
+            }
+        }
+        return result;
     }
 }
