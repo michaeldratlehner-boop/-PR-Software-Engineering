@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
+
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -58,15 +60,23 @@
                             <StackPane prefWidth="110" prefHeight="110"
                                        style="-fx-background-color:white; -fx-background-radius:55;">
                                 <children>
+                                    <ImageView fx:id="avatarImageView"
+                                               fitWidth="110" fitHeight="110"
+                                               preserveRatio="true" />
+
                                     <Label fx:id="avatarInitialsLabel"
-                                    text="MM"
-                                    style="-fx-font-size:20; -fx-font-weight:bold;"/>
+                                           text="MM"
+                                           style="-fx-font-size:20; -fx-font-weight:bold;"/>
                                 </children>
                             </StackPane>
+
                             <Button text="Bild hochladen"
-                                    style="-fx-font-size:11; -fx-background-color:transparent;"/>
+                                    fx:id="uploadBtn"
+                                    onAction="#uploadAvatar"
+                                    style="-fx-background-color:transparent; -fx-text-fill:#333333;"/>
                         </children>
                     </VBox>
+
 
                     <!-- Formular -->
                     <GridPane hgap="12" vgap="8">

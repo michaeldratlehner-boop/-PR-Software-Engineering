@@ -5,6 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.regex.Pattern;
 import at.jku.se.smarthome.service.UserService;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
+
 public class RegisterController {
 
     private final UserService userService = new UserService();
@@ -16,6 +21,10 @@ public class RegisterController {
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
     @FXML private Label errorLabel;   // aus FXML
+    @FXML private ImageView avatarImageView;
+    private File selectedAvatarFile;
+    @FXML private Label uploadIconLabel;
+
 
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
@@ -76,7 +85,8 @@ public class RegisterController {
         errorLabel.setVisible(false);
 
         try{
-            userService.registerUser(firstName, lastName, email, password, address);
+            userService.registerUser(firstName, lastName, email, password, address, selectedAvatarFile);
+
             System.out.println("Registrierung erfolgreich für: " + email);
             App.setRoot("landingPage");
         } catch(IllegalArgumentException e){ // Wenn Fehler vorhanden → anzeigen und abbrechen
@@ -94,6 +104,25 @@ public class RegisterController {
     @FXML
     private void goToLogin() {        // ← Zu „Bereits registriert? Jetzt anmelden“
         App.setRoot("login");
+    }
+
+    @FXML
+    private void uploadAvatar() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Bild auswählen");
+        fc.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Bilder", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        File file = fc.showOpenDialog(firstNameField.getScene().getWindow());
+        if (file == null) return;
+
+        selectedAvatarFile = file;
+
+        if (avatarImageView != null) {
+            avatarImageView.setImage(new Image(file.toURI().toString(), false));
+        }
+        if (uploadIconLabel != null) uploadIconLabel.setVisible(false);
     }
 
 }

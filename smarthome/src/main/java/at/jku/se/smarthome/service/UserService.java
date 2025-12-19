@@ -3,6 +3,8 @@ package at.jku.se.smarthome.service;
 import at.jku.se.State.*;
 import at.jku.se.smarthome.model.User;
 import at.jku.se.smarthome.service.GeocodingService;
+import java.io.File;
+import at.jku.se.smarthome.util.AvatarStorage;
 
 public class UserService {
     private final PasswordHasher passwordHasher = new PasswordHasher();
@@ -54,7 +56,7 @@ public class UserService {
         throw new IllegalArgumentException("E-Mail oder Passwort falsch");
     }
 
-    public User updateUserProfile(String userId, String firstName, String lastName, String newPassword, String address) {
+    public User updateUserProfile(String userId, String firstName, String lastName, String newPassword, String address, File newAvatarFile) {
         AppState state = loadState();
         User user = state.getUser(userId);
         if(user == null) {
@@ -89,9 +91,38 @@ public class UserService {
                 user.setLongitude(coords.lon);
             }
         }
+        if (newAvatarFile != null) {
+            String avatarPath = AvatarStorage.storeAvatar(newAvatarFile, user.getId());
+            user.setAvatarPath(avatarPath);
+        }
 
         state.saveUser(user);
 
         return user;
     }
+
+    public User registerUser(String firstName, String lastName, String email, String password, String address, File avatarFile) {
+        AppState state = loadState();
+
+        boolean exists = state.getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+        if (exists) throw new IllegalArgumentException("E-Mail ist bereits registriert");
+
+        String hashedPassword = PasswordHasher.hashPassword(password);
+        User newUser = new User(firstName, lastName, email, hashedPassword, address);
+
+        GeocodingService.Coordinates coords = new GeocodingService().geocodeAddress(address);
+        if (coords != null) {
+            newUser.setLatitude(coords.lat);
+            newUser.setLongitude(coords.lon);
+        }
+
+        if (avatarFile != null) {
+            String avatarPath = AvatarStorage.storeAvatar(avatarFile, newUser.getId());
+            newUser.setAvatarPath(avatarPath);
+        }
+
+        state.saveUser(newUser);
+        return newUser;
+    }
+
 }

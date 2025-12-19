@@ -11,7 +11,7 @@ public class User {
     private String houseId;
     private Double latitude;
     private Double longitude;
-
+    private String avatarPath; // z.B. "avatars/<userId>.png"
     // Konstruktor
     public User(){}//State Constructor
 
@@ -68,5 +68,7 @@ public class User {
         this.longitude = longitude;
     }
 
+    public String getAvatarPath() { return avatarPath; }
+    public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
 
 }

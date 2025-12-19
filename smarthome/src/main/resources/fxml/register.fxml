@@ -37,12 +37,14 @@
                         <StackPane prefWidth="80" prefHeight="80"
                                    style="-fx-background-color:white; -fx-background-radius:40;">
                             <children>
-                                <Label text="↑"
+                                <Label fx:id="uploadIconLabel"
+                                       text="↑"
                                        style="-fx-font-size:26; -fx-text-fill:#444444;"/>
                             </children>
                         </StackPane>
+
                         <Button text="Bild hochladen"
-                                fx:id="uploadBtn"
+                                onAction="#uploadAvatar"
                                 style="-fx-background-color:transparent; -fx-text-fill:#333333;"/>
                     </children>
                 </VBox>
