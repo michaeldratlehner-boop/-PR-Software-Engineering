@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
+
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -52,14 +54,19 @@
                 <HBox spacing="16" alignment="CENTER_LEFT">
                     <children>
                         <!-- Avatar-Kreis -->
-                        <StackPane prefWidth="64" prefHeight="64"
-                                   style="-fx-background-color:white; -fx-background-radius:32;">
+                        <StackPane prefWidth="80" prefHeight="80"
+                                   style="-fx-background-color:white; -fx-background-radius:40;">
                             <children>
+                                <ImageView fx:id="avatarImageView"
+                                           fitWidth="80" fitHeight="80"
+                                           preserveRatio="true"/>
+
                                 <Label fx:id="avatarInitialsLabel"
-                                       text="MM"
-                                       style="-fx-font-size:20; -fx-font-weight:bold;"/>
+                                       text="TT"
+                                       style="-fx-font-size:18; -fx-font-weight:bold;"/>
                             </children>
                         </StackPane>
+
 
                         <!-- Name, Mail, Adresse -->
                         <VBox spacing="4">

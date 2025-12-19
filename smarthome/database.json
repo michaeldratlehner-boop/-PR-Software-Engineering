@@ -8,6 +8,26 @@
       "passwordHash": "$2a$12$jAlT2S5FFAD931IMOmb1POZdBJpBadI9qWY0yP14/2g5p63pIP34q",
       "address": "Mstraße 1 4600 Wels",
       "houseId": "1"
+    },
+    "fa1c1656-fcbc-432d-a505-41e64716bdbc": {
+      "id": "fa1c1656-fcbc-432d-a505-41e64716bdbc",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@gmx.at",
+      "passwordHash": "$2a$12$SpkfcLHo.dLebQ6TyYVxweCpPw5CQY0CQD9HWRFBpcZMQFJ1aXsxq",
+      "address": "test123",
+      "houseId": "2"
+    },
+    "91522749-4317-44b8-b049-2da956f872e7": {
+      "id": "91522749-4317-44b8-b049-2da956f872e7",
+      "firstName": "test",
+      "lastName": "test",
+      "email": "test@gmail.com",
+      "passwordHash": "$2a$12$Ca8YzrSbpGqL17lD9qh52eViyAOCh6ONKFOzRFV5YPQ5TT/hkgZI6",
+      "address": "test",
+      "latitude": 34.0218976,
+      "longitude": 50.6951851,
+      "avatarPath": "avatars/91522749-4317-44b8-b049-2da956f872e7.jpg"
     }
   },
   "houses": {
@@ -15,6 +35,12 @@
       "houseId": "1",
       "name": "",
       "address": "",
+      "floors": 1
+    },
+    "2": {
+      "houseId": "2",
+      "name": "test",
+      "address": "test123",
       "floors": 1
     }
   },
@@ -28,5 +54,6 @@
       "roomId": "1",
       "className": "at.jku.se.smarthome.model.devices.actors.PowerOutlet"
     }
-  }
+  },
+  "houseShares": {}
 }

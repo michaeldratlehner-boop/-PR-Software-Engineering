@@ -28,10 +28,10 @@ public class LoginController {
             return;
         }
 
-        /*if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[A-Za-z]{2,6}$")) {
+        if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[A-Za-z]{2,6}$")) {
             errorLabel.setText("Bitte eine gültige E-Mail-Adresse eingeben.");
             return;
-        }*/ //zum testen auskommentiert!!!!
+        }
 
         if (password.isEmpty()) {
             errorLabel.setText("Bitte Passwort eingeben.");

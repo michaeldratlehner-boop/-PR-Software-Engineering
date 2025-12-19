@@ -4,10 +4,15 @@ import at.jku.se.smarthome.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import at.jku.se.State.CurrentUser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
+import java.nio.file.Paths;
+
 
 public class UserCockpitController {
 
-    @FXML private Label avatarInitialsLabel;
+
     @FXML private Label nameLabel;
     @FXML private Label emailLabel;
     @FXML private Label addressLabel;
@@ -17,6 +22,10 @@ public class UserCockpitController {
     @FXML private Label latitudeLabel;
     @FXML private Label longitudeLabel;
     @FXML private Label infoTextLabel;
+    @FXML private ImageView avatarImageView;
+    @FXML private Label avatarInitialsLabel;
+
+
 
     @FXML
     public void initialize() {
@@ -35,6 +44,17 @@ public class UserCockpitController {
         // Initialen für Avatar
         String initials = (firstName.substring(0,1) + lastName.substring(0,1)).toUpperCase();
         avatarInitialsLabel.setText(initials);
+        avatarInitialsLabel.setVisible(true);
+
+        // Avatar laden, wenn vorhanden
+        String p = CurrentUser.getCurrentUser().getAvatarPath();
+        if (p != null && !p.isBlank()) {
+            File f = Paths.get(p).toFile();
+            if (f.exists()) {
+                avatarImageView.setImage(new Image(f.toURI().toString(), false));
+                avatarInitialsLabel.setVisible(false);
+            }
+        }
     }
 
     @FXML

@@ -16,14 +16,14 @@ public class App extends Application {
         primaryStage = stage;
 
         //fake Login für die Entwicklung
-       /* User demo = new User();
+        User demo = new User();
         demo.setFirstName("Michael");
         demo.setLastName("Drahtlehner");
         CurrentUser.setCurrentUser(demo);
 
-        setRoot("dashboard"); //von vorne mit "landingPAge" starten
-        */
-        setRoot("login");
+        setRoot("landingPage"); //von vorne mit "landingPAge" starten
+
+        setRoot("landingPage");
         stage.setTitle("Smarthome Simulator");
         stage.show();
     }

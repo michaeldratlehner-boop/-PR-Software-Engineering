@@ -6,6 +6,13 @@ import javafx.scene.control.*;
 import at.jku.se.State.CurrentUser;
 import at.jku.se.smarthome.model.User;
 import at.jku.se.smarthome.service.UserService;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
+import java.nio.file.Paths;
+
+
 
 public class UserProfileEditController {
 
@@ -22,22 +29,48 @@ public class UserProfileEditController {
     @FXML private Label userIdLabel;
     @FXML private Label latitudeLabel;
     @FXML private Label longitudeLabel;
+    @FXML private ImageView avatarImageView;
+    private File selectedAvatarFile;
+
 
     @FXML
     public void initialize() {
-        // Dummy-Daten (später aus User-Objekt/DB laden)
-        firstNameField.setText(CurrentUser.getCurrentUser().getFirstName());
-        lastNameField.setText(CurrentUser.getCurrentUser().getLastName());
-        emailField.setText(CurrentUser.getCurrentUser().getEmail());
-        addressField.setText(CurrentUser.getCurrentUser().getAddress());
+        User u = CurrentUser.getCurrentUser();
+        if (u == null) return;
 
-        userIdLabel.setText(CurrentUser.getCurrentUser().getId());
-        latitudeLabel.setText(CurrentUser.getCurrentUser().getLatitude() + "°N");
-        longitudeLabel.setText(CurrentUser.getCurrentUser().getLongitude() + "°E");
+        firstNameField.setText(u.getFirstName());
+        lastNameField.setText(u.getLastName());
+        emailField.setText(u.getEmail());
+        addressField.setText(u.getAddress());
 
-        // Initialen für Avatar
-        String initials = (CurrentUser.getCurrentUser().getFirstName().substring(0,1) + CurrentUser.getCurrentUser().getLastName().substring(0,1)).toUpperCase();
+        userIdLabel.setText(u.getId());
+
+        Double lat = u.getLatitude();
+        Double lon = u.getLongitude();
+        latitudeLabel.setText(lat == null ? "-" : lat + "°N");
+        longitudeLabel.setText(lon == null ? "-" : lon + "°E");
+
+        // Initialen immer setzen
+        String initials = (u.getFirstName().substring(0,1) + u.getLastName().substring(0,1)).toUpperCase();
         avatarInitialsLabel.setText(initials);
+        avatarInitialsLabel.setVisible(true);
+
+        // Avatar laden
+        String p = u.getAvatarPath();
+        System.out.println("profileEdit avatarPath=" + p);
+
+        if (p != null && !p.isBlank()) {
+            File f = Paths.get(p).toFile();
+            System.out.println("profileEdit absolute=" + f.getAbsolutePath());
+            System.out.println("profileEdit exists=" + f.exists());
+
+            if (f.exists()) {
+                avatarImageView.setImage(new Image(f.toURI().toString(), false));
+                avatarInitialsLabel.setVisible(false);
+            }
+        }
+
+
     }
 
     @FXML
@@ -73,9 +106,8 @@ public class UserProfileEditController {
         try{
             String passwordForUpdate = changePassword ? pwd : null;
 
-            User updatedUser = userService.updateUserProfile(
-                current.getId(), first, last, passwordForUpdate, addr
-            );
+            User updatedUser = userService.updateUserProfile(current.getId(), first, last, passwordForUpdate, addr, selectedAvatarFile);
+
             CurrentUser.setCurrentUser(updatedUser);
 
             errorLabel.setText("");
@@ -89,6 +121,28 @@ public class UserProfileEditController {
     }
 
     @FXML
+    private void uploadAvatar() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Bild auswählen");
+        fc.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Bilder", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        File file = fc.showOpenDialog(firstNameField.getScene().getWindow());
+        if (file == null) return;
+
+        selectedAvatarFile = file;
+
+        if (avatarImageView != null) {
+            avatarImageView.setImage(new Image(file.toURI().toString(), false));
+        }
+        if (avatarInitialsLabel != null) {
+            avatarInitialsLabel.setVisible(false);
+        }
+    }
+
+
+    @FXML
     private void cancelEdit() {
         errorLabel.setText("");
         App.setRoot("userCockpit");
@@ -99,4 +153,6 @@ public class UserProfileEditController {
         errorLabel.setText("");
         App.setRoot("dashboard");
     }
+
+
 }
