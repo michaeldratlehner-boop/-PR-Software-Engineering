@@ -4,8 +4,8 @@ public abstract class Sensor extends SmartDevice {
     protected double value;
     protected String unit; // Einheit z.B. "°C"
 
-    public Sensor(String name, String unit) {
-        super(name);
+    public Sensor(String name, String unit, String roomId) {
+        super(name, roomId);
         this.unit = unit;
         this.isOn = true; // Sensoren sind meist immer an
     }

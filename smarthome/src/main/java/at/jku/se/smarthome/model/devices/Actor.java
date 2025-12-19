@@ -2,8 +2,8 @@ package at.jku.se.smarthome.model.devices;
 
 public abstract class Actor extends SmartDevice {
 
-    public Actor(String name) {
-        super(name);
+    public Actor(String name, String roomId ) {
+        super(name, roomId);
     }
 
     public void turnOn() { this.isOn = true; }

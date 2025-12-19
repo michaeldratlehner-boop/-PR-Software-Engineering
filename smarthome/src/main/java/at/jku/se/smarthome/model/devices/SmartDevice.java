@@ -1,13 +1,18 @@
 package at.jku.se.smarthome.model.devices;
 
+import java.util.UUID;
+
 public abstract class SmartDevice {
     protected String name;
     protected String id;
     protected boolean isOn;
+    protected String roomId;
 
-    public SmartDevice(String name) {
+    public SmartDevice(String name, String roomId) {
         this.name = name;
         this.isOn = false; // Standardmäßig aus
+        this.id = UUID.randomUUID().toString();
+        this.roomId = roomId;
     }
 
     public String getName() { return name; }

@@ -3,22 +3,39 @@ package at.jku.se.State;
 import at.jku.se.smarthome.model.House;
 import at.jku.se.smarthome.model.Room;
 import at.jku.se.smarthome.model.User;
-import at.jku.se.smarthome.model.devices.*;
+import at.jku.se.smarthome.model.devices.SmartDevice;
 
 import java.util.*;
 
 public class AppState {
-    private Map<String, User> users = new HashMap<>();
-    private Map<String, House> houses = new HashMap<>();
-    private Map<String, Map<String, String>> houseShares = new  HashMap<>();
-    private Map<String, Room> rooms = new HashMap<>();
-    private Map<String, Sensor> sensors = new HashMap<>();
-    private Map<String, Object> actors = new HashMap<>();
+    private static AppState instance;
 
-    public AppState() {
+    private Map<String, User> users;
+    private Map<String, House> houses;
+    private Map<String, Room> rooms;
+    private Map<String, SmartDevice> sensors;
+    private Map<String, SmartDevice> actors;
+
+    private AppState() {
+        users = new HashMap<>();
+        houses = new HashMap<>();
+        rooms = new HashMap<>();
+        sensors = new HashMap<>();
+        actors = new HashMap<>();
     }
 
-    //Getter and Setter for the AppState class
+    public static AppState getInstance() {
+        if (instance == null) {
+            instance = new AppState();
+        }
+        return instance;
+    }
+
+    static void setInstance(AppState loadedState) {
+        instance = loadedState;
+    }
+
+
     public Map<String, User> getUsers() {
         return users;
     }
@@ -27,39 +44,6 @@ public class AppState {
         this.users = users;
     }
 
-    public Map<String, House> getHouses() {
-        return houses;
-    }
-
-    public void setHouses(Map<String, House> houses) {
-        this.houses = houses;
-    }
-
-    public Map<String, Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(Map<String, Room> rooms) {
-        this.rooms = rooms;
-    }
-
-    public Map<String, Sensor> getSensors() {return sensors;}
-
-    public void setSensors(Map<String, Sensor> sensors) {this.sensors = sensors;}
-
-    public Map<String, Object> getActors() {return actors;}
-
-    public void setActors(Map<String, Object> actors) {this.actors = actors;}
-
-    public Map<String, Map<String, String>> getHouseShares() {
-        return houseShares;
-    }
-
-    public void setHouseShares(Map<String, Map<String, String>> houseShares) {
-        this.houseShares = houseShares;
-    }
-
-    //User methods
     public User getUser(String id) {
         return users.get(id);
     }
@@ -77,7 +61,15 @@ public class AppState {
         users.remove(id);
         save();
     }
-    //House methods
+
+    public Map<String, House> getHouses() {
+        return houses;
+    }
+
+    public void setHouses(Map<String, House> houses) {
+        this.houses = houses;
+    }
+
     public House getHouse(String id) {
         return houses.get(id);
     }
@@ -86,34 +78,9 @@ public class AppState {
         return houses.values();
     }
 
-    public List<House> getAllHousesForUser(User user) {
-        List<House> result = new ArrayList<>();
-
-        if(user.getHouseId() != null) {
-            House house = houses.get(user.getHouseId());
-            if(house != null) {
-                result.add(house);
-            }
-        }
-        return result;
-    }
-
     public void saveHouse(House house) {
         houses.put(house.getId(), house);
         save();
-    }
-
-    public String nextHouseId() {
-        long maxId = 0;
-        for (String key : houses.keySet()) {
-            if (key != null && key.matches("\\d+")) {
-                long id = Long.parseLong(key);
-                if (id > maxId) {
-                    maxId = id;
-                }
-            }
-        }
-        return Long.toString(maxId + 1);
     }
 
     public void deleteHouse(String id) {
@@ -121,22 +88,34 @@ public class AppState {
         save();
     }
 
-    //HouseShare methods
-    public List<String> getSharedUsersEmailsForHouse(String houseId) {
-        List<String> result = new ArrayList<>();
-        Map<String, String> shares = houseShares.get(houseId);
-        if (shares != null) {
-            for (String userId : shares.keySet()) {
-                User user = users.get(userId);
-                if (user != null && user.getEmail() != null) {
-                    result.add(user.getEmail());
-                }
-            }
+    public List<House> getAllHousesForUser(User user) {
+        List<House> result = new ArrayList<>();
+        if (user.getHouseId() != null) {
+            House house = houses.get(user.getHouseId());
+            if (house != null) result.add(house);
         }
         return result;
     }
 
-    //Room methods
+    public String nextHouseId() {
+        long maxId = 0;
+        for (String key : houses.keySet()) {
+            if (key != null && key.matches("\\d+")) {
+                long id = Long.parseLong(key);
+                if (id > maxId) maxId = id;
+            }
+        }
+        return Long.toString(maxId + 1);
+    }
+
+    public Map<String, Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Map<String, Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public Room getRoom(String id) {
         return rooms.get(id);
     }
@@ -148,41 +127,46 @@ public class AppState {
     public List<Room> getRoomsByHouseId(String houseId) {
         List<Room> result = new ArrayList<>();
         for (Room room : rooms.values()) {
-            if (room.getHouseId().equals(houseId)) {
-                result.add(room);
-            }
+            if (room.getHouseId().equals(houseId)) result.add(room);
         }
         return result;
     }
+
     public void saveRoom(Room room) {
         rooms.put(room.getId(), room);
         save();
     }
+
     public void deleteRoom(String id) {
         rooms.remove(id);
         save();
     }
 
-    //Sensor methods
-    public Sensor getSensor(String id) {
+    public Map<String, SmartDevice> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(Map<String, SmartDevice> sensors) {
+        this.sensors = sensors;
+    }
+
+    public SmartDevice getSensor(String id) {
         return sensors.get(id);
     }
 
-    public Collection<Sensor> getAllSensors() {
+    public Collection<SmartDevice> getAllSensors() {
         return sensors.values();
     }
 
-    public Collection<Sensor> getAllSensorsByRoomId(String roomId) {
-        List<Sensor> result = new ArrayList<>();
-        for (Sensor sensor : sensors.values()) {
-            if(sensor.getRoomId().equals(roomId)) {
-                result.add(sensor);
-            }
+    public Collection<SmartDevice> getAllSensorsByRoomId(String roomId) {
+        List<SmartDevice> result = new ArrayList<>();
+        for (SmartDevice sensor : sensors.values()) {
+            if (sensor.getRoomId().equals(roomId)) result.add(sensor);
         }
         return result;
     }
 
-    public void saveSensor(Sensor sensor) {
+    public void saveSensor(SmartDevice sensor) {
         sensors.put(sensor.getId(), sensor);
         save();
     }
@@ -192,16 +176,23 @@ public class AppState {
         save();
     }
 
-    //Actor methods
-    public Object getActor(String id) {
+    public Map<String, SmartDevice> getActors() {
+        return actors;
+    }
+
+    public void setActors(Map<String, SmartDevice> actors) {
+        this.actors = actors;
+    }
+
+    public SmartDevice getActor(String id) {
         return actors.get(id);
     }
 
-    public Collection<Object> getAllActors() {
+    public Collection<SmartDevice> getAllActors() {
         return actors.values();
     }
 
-    public void saveActor(Actor actor) {
+    public void saveActor(SmartDevice actor) {
         actors.put(actor.getId(), actor);
         save();
     }
@@ -211,8 +202,6 @@ public class AppState {
         save();
     }
 
-
-    // Save the current state to State
     private void save() {
         JsonStateService.getInstance().save(this);
     }

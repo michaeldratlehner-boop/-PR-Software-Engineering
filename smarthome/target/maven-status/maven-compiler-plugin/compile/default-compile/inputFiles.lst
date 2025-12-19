@@ -1,29 +1,46 @@
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/AppState.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/CurrentHouse.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/CurrentUser.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/JsonStateService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/App.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/Main.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/BuildingController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/DashboardController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/DeviceController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/LandingPageController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/LoginController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RegisterController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/ShareHouseController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserCockpitController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserProfileEditController.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/House.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/Room.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/User.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/Actor.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/Sensor.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/SmartDevice.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/GeocodingService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseShareService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/PasswordHasher.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/SimulationService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/UserService.java
-/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/util/ViewLoader.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\App.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\BuildingController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\DashboardController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\DeviceController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\LandingPageController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\LoginController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\RegisterController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\RoomController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\UserCockpitController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\controllers\UserProfileEditController.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\factory\DeviceFactory.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\Main.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\Actor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\AlarmState.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\AlarmSystem.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\DoorControl.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\Heating.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\HeatingMode.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\LightControl.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\PowerOutlet.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\ShutterControl.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\actors\ShutterState.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\Sensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\DoorSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\DoorState.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\LightSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\LightSensorType.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\MotionSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\SmokeSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\TemperatureSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\WindowSensor.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\sensors\WindowState.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\devices\SmartDevice.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\House.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\Room.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\model\User.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\service\GeocodingService.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\service\HouseService.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\service\PasswordHasher.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\service\SimulationService.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\service\UserService.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\smarthome\util\ViewLoader.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\State\AppState.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\State\CurrentHouse.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\State\CurrentUser.java
+C:\Users\felic\OneDrive\Dokumente\Studium\Semester 7\SE_PR\Repository\-PR-Software-Engineering\smarthome\src\main\java\at\jku\se\State\JsonStateService.java
