@@ -2,11 +2,18 @@ package at.jku.se.smarthome.controllers;
 
 
 import at.jku.se.smarthome.App;
+import at.jku.se.smarthome.factory.DeviceFactory;
+import at.jku.se.smarthome.model.devices.Actor;
+import at.jku.se.smarthome.model.devices.Sensor;
+import at.jku.se.smarthome.model.devices.SmartDevice;
+import at.jku.se.smarthome.model.devices.sensors.LightSensor;
+import at.jku.se.smarthome.model.devices.sensors.LightSensorType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import at.jku.se.State.*;
 
 public class DeviceController {
 
@@ -53,10 +60,15 @@ public class DeviceController {
                     "Lichtsensor",
                     "Bewegungsmelder",
                     "Steckdose",
-                    "Lampe",
-                    "Kamera",
+                    "Lichtsteuerung",
                     "Türsensor",
-                    "Fenstersensor"
+                    "Fenstersensor",
+                    "Türsteuerung",
+                    "Heizungssteuerung",
+                    "Rolladensteuerung",
+                    "Lichtsteuerung",
+                    "Alarmsystem",
+                    "Rauchmelder"
             );
         }
 
@@ -121,6 +133,32 @@ public class DeviceController {
         String type = deviceTypeField.getText();
         String kind = deviceKindCombo.getValue();
         String wifi = wifiPasswordField.getText();
+
+        double settedTemp = 22.0;
+        LightSensor lightSensor = null;
+        double brightnessVerge = 200;
+        LightSensorType lightSensorType = LightSensorType.OUTDOOR;
+        String roomId = "1";
+
+        SmartDevice device = DeviceFactory.create(
+                kind,
+                name,
+                roomId,
+                settedTemp,
+                lightSensor,
+                brightnessVerge,
+                lightSensorType
+        );
+
+        if(device instanceof Sensor sensor) {
+            AppState.getInstance().saveSensor(sensor);
+            System.out.println("Sensor gespeichert: " + sensor.getName());
+        } else if(device instanceof Actor actor) {
+            AppState.getInstance().saveActor(actor);
+            System.out.println("Aktor gespeichert: " + actor.getName());
+        } else {
+            System.out.println("Unbekannter Gerätetyp");
+        }
 
         if (viewMode == ViewMode.EDIT) {
             System.out.println("Gerät aktualisieren:");

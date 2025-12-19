@@ -1,16 +1,32 @@
 {
   "users": {
-    "b6a7866f-6f1e-436c-abe5-41ba2895d936": {
-      "id": "b6a7866f-6f1e-436c-abe5-41ba2895d936",
-      "firstName": "M",
-      "lastName": "D",
-      "email": "md@gmx.at",
-      "passwordHash": "$2a$12$OcohEvno2N4cFRoIplhwR.l7VrC5CVg8O.693c9uyPqaRVhxYy6Ce",
-      "address": "random",
-      "latitude": -2.3550671,
-      "longitude": 116.5244293
+    "2da7c553-d519-4ec7-a793-6b281a7d0e9e": {
+      "id": "2da7c553-d519-4ec7-a793-6b281a7d0e9e",
+      "firstName": "Max",
+      "lastName": "M",
+      "email": "max@m.at",
+      "passwordHash": "$2a$12$jAlT2S5FFAD931IMOmb1POZdBJpBadI9qWY0yP14/2g5p63pIP34q",
+      "address": "Mstraße 1 4600 Wels",
+      "houseId": "1"
     }
   },
-  "houses": {},
-  "rooms": {}
+  "houses": {
+    "1": {
+      "houseId": "1",
+      "name": "",
+      "address": "",
+      "floors": 1
+    }
+  },
+  "rooms": {},
+  "sensors": {},
+  "actors": {
+    "00555ead-5631-4201-906a-f9ed602c676a": {
+      "name": "Steckdose 1",
+      "id": "00555ead-5631-4201-906a-f9ed602c676a",
+      "isOn": false,
+      "roomId": "1",
+      "className": "at.jku.se.smarthome.model.devices.actors.PowerOutlet"
+    }
+  }
 }
