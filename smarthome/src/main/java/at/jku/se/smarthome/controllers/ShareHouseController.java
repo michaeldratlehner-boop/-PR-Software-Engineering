@@ -38,13 +38,25 @@ public class ShareHouseController {
     }
     @FXML
     private void onInvite() {
-        houseShareService.shareHouseWithUser(normalizeEmail(emailField.getText()));
-        accessList.getItems().setAll(houseShareService.getSharedUserEmails());
+            String email = normalizeEmail(emailField.getText());
+
+            if (email.isBlank()) {
+                showValidation("Bitte E-Mail eingeben.");
+                return;
+            }
+            if (!isValidEmail(email)) {
+                showValidation("Bitte eine gültige E-Mail eingeben.");
+                return;
+            }
+
+            houseShareService.shareHouseWithUser(email);
+            accessList.getItems().setAll(houseShareService.getSharedUserEmails());
+            emailField.clear();
     }
     @FXML
     private void onBack() {
         //Back to dashboard
-        App.setRoot("dashboard");
+        App.setRoot("buildingCockpit");
     }
     private String normalizeEmail(String email) {
         return email == null ? "" : email.trim().toLowerCase();
@@ -103,6 +115,4 @@ public class ShareHouseController {
             }
         }
     }
-
-
 }

@@ -1,8 +1,5 @@
 package at.jku.se.smarthome.model.devices.actors;
 
-import at.jku.se.smarthome.model.devices.Actor;
-import com.google.gson.internal.bind.util.ISO8601Utils;
-
 public class AlarmSystem extends Actor {
     private AlarmState alarmState;
     public AlarmSystem(String name,  String roomId) {

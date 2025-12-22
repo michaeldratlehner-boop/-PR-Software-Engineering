@@ -7,6 +7,8 @@ import at.jku.se.smarthome.model.devices.SmartDevice;
 
 import java.util.*;
 
+
+
 public class AppState {
     private static AppState instance;
 
@@ -24,6 +26,7 @@ public class AppState {
         sensors = new HashMap<>();
         actors = new HashMap<>();
     }
+
 
     public static AppState getInstance() {
         if (instance == null) {
@@ -96,6 +99,7 @@ public class AppState {
             if (house != null) result.add(house);
         }
         return result;
+
     }
 
     public String nextHouseId() {
@@ -128,20 +132,49 @@ public class AppState {
     public List<Room> getRoomsByHouseId(String houseId) {
         List<Room> result = new ArrayList<>();
         for (Room room : rooms.values()) {
-            if (room.getHouseId().equals(houseId)) result.add(room);
+            if (houseId != null && houseId.equals(room.getHouseId())) {
+                result.add(room);
+            }
         }
         return result;
     }
 
+
     public void saveRoom(Room room) {
+        if (room == null) return;
+
+        // ID erzwingen
+        if (room.getId() == null || room.getId().isBlank()) {
+            room.setId(UUID.randomUUID().toString());
+        }
+
+        // houseId erzwingen (wenn du CurrentHouse nutzt)
+        if (room.getHouseId() == null || room.getHouseId().isBlank()) {
+            if (CurrentHouse.getCurrentHouse() != null) {
+                room.setHouseId(CurrentHouse.getCurrentHouse().getId());
+            }
+        }
+
         rooms.put(room.getId(), room);
         save();
     }
 
+
+
     public void deleteRoom(String id) {
+        if (id == null) return;
+
+        for (SmartDevice d : getAllDevices()) {
+            if (id.equals(d.getRoomId())) {
+                d.setRoomId(null);
+                saveDevice(d);
+            }
+        }
+
         rooms.remove(id);
         save();
     }
+
 
     public Map<String, SmartDevice> getSensors() {
         return sensors;
@@ -162,10 +195,13 @@ public class AppState {
     public Collection<SmartDevice> getAllSensorsByRoomId(String roomId) {
         List<SmartDevice> result = new ArrayList<>();
         for (SmartDevice sensor : sensors.values()) {
-            if (sensor.getRoomId().equals(roomId)) result.add(sensor);
+            if (roomId != null && roomId.equals(sensor.getRoomId())) {
+                result.add(sensor);
+            }
         }
         return result;
     }
+
 
     public void saveSensor(SmartDevice sensor) {
         sensors.put(sensor.getId(), sensor);
@@ -226,4 +262,42 @@ public class AppState {
         }
         return result;
     }
+    public List<SmartDevice> getAllDevices() {
+        List<SmartDevice> all = new ArrayList<>();
+        all.addAll(getAllSensors());
+        all.addAll(getAllActors());
+        return all;
+    }
+
+    public SmartDevice getDevice(String id) {
+        for (SmartDevice d : getAllDevices()) {
+            if (d.getId().equals(id)) return d;
+        }
+        return null;
+    }
+
+    public void saveDevice(SmartDevice d) {
+        if (d == null) return;
+
+        // wenn schon in sensors-map vorhanden → als Sensor speichern
+        if (sensors.containsKey(d.getId())) {
+            saveSensor(d);
+            return;
+        }
+
+        // wenn schon in actors-map vorhanden → als Actor speichern
+        if (actors.containsKey(d.getId())) {
+            saveActor(d);
+            return;
+        }
+
+        // sonst: heuristisch nach Package (funktioniert bei dir sehr gut)
+        String pkg = d.getClass().getPackageName();
+        if (pkg.contains(".sensors")) saveSensor(d);
+        else if (pkg.contains(".actors")) saveActor(d);
+        else throw new IllegalArgumentException("Unbekannter Gerätetyp: " + d.getClass());
+    }
+
+
+
 }

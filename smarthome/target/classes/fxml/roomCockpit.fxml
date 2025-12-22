@@ -3,210 +3,95 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.jku.se.smarthome.controllers.RoomCockpitController"
+            style="-fx-background-color:#f2f2f2;">
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="at.jku.se.smarthome.controllers.RoomController"
-            style="-fx-background-color:#f2f2f2;"
-            prefWidth="820" prefHeight="640">
+    <VBox prefWidth="980" prefHeight="640" alignment="TOP_CENTER">
+        <padding>
+            <Insets top="52" right="32" bottom="24" left="32"/>
+        </padding>
 
-    <!-- Zurück zur Startseite oben links -->
-    <top>
-        <HBox alignment="CENTER_LEFT">
-            <padding>
-                <Insets top="15" right="20" bottom="10" left="25"/>
-            </padding>
-            <children>
-                <Button text="←  Zurück zur Startseite"
-                        style="-fx-background-color:transparent; -fx-text-fill:#333333;"
-                        onAction="#backToDashboard"/>
-            </children>
-        </HBox>
-    </top>
+        <children>
 
-    <center>
-        <StackPane alignment="TOP_CENTER">
-            <padding>
-                <Insets top="10" right="0" bottom="20" left="0"/>
-            </padding>
-            <children>
+            <VBox spacing="18" prefWidth="904" maxWidth="904">
 
-                <!-- ========== FORMULAR-CARD: Raum hinzufügen / bearbeiten ========== -->
-                <VBox fx:id="formCard"
-                      alignment="TOP_CENTER" spacing="20"
-                      maxWidth="520"
-                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
-                    <padding>
-                        <Insets top="24" right="40" bottom="32" left="40"/>
-                    </padding>
-                    <children>
-
-                        <!-- Überschrift -->
-                        <VBox spacing="4" alignment="CENTER_LEFT">
-                            <children>
-                                <Label fx:id="titleLabel"
-                                       text="Raum hinzufügen"
-                                       style="-fx-font-size:18; -fx-font-weight:bold;"/>
-                                <Label fx:id="subtitleLabel"
-                                       text="Fügen Sie Ihrem Haus oder Wohnung einen Raum hinzu"
-                                       style="-fx-font-size:11; -fx-text-fill:#666666;"/>
-                            </children>
-                        </VBox>
-
-                        <!-- Formular -->
-                        <VBox spacing="12" maxWidth="Infinity">
-
-                            <!-- Name -->
-                            <VBox spacing="4">
-                                <children>
-                                    <Label text="Name*" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <TextField fx:id="nameField"
-                                               promptText="Lieblingszimmer"/>
-                                </children>
-                            </VBox>
-
-                            <!-- Größe -->
-                            <VBox spacing="4">
-                                <children>
-                                    <Label text="Größe (in Quadratmeter)" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <TextField fx:id="sizeField"
-                                               promptText="30"/>
-                                </children>
-                            </VBox>
-
-                            <!-- Raumtyp -->
-                            <VBox spacing="4">
-                                <children>
-                                    <Label text="Raumtyp" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <ComboBox fx:id="roomComboBox"
-                                              promptText="Wohnzimmer"/>
-                                </children>
-                            </VBox>
-
-                            <!-- Position im Gebäude -->
-                            <VBox spacing="4">
-                                <children>
-                                    <Label text="Position im Gebäude" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <ComboBox fx:id="roomLocationCombo"
-                                              promptText="Rechts hinten"/>
-                                </children>
-                            </VBox>
-
-                        </VBox>
-
-                        <!-- Buttons -->
-                        <HBox spacing="10" alignment="CENTER">
-                            <padding>
-                                <Insets top="18" right="0" bottom="0" left="0"/>
-                            </padding>
-                            <children>
-                                <Button text="Speichern"
-                                        onAction="#saveRoom"
-                                        style="-fx-background-color:#333333; -fx-text-fill:white; -fx-padding:4 20 4 20;"/>
-                                <Button text="Abbrechen"
-                                        onAction="#cancel"
-                                        style="-fx-background-color:white; -fx-text-fill:#333333;
-                                               -fx-border-color:#cccccc; -fx-border-radius:4;
-                                               -fx-padding:4 20 4 20;"/>
-                            </children>
-                        </HBox>
-
-                    </children>
-                </VBox>
-
-                <!-- ========== LISTEN-CARD: Liste der Räume ========== -->
-                <VBox fx:id="listCard"
-                      alignment="TOP_CENTER"
-                      maxWidth="520"
-                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
-                    <padding>
-                        <Insets top="24" right="40" bottom="24" left="40"/>
-                    </padding>
+                <!-- ROOM CARD -->
+                <VBox spacing="12" style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                    <padding><Insets top="18" right="28" bottom="18" left="28"/></padding>
 
                     <children>
-
-                        <!-- Überschrift -->
                         <VBox spacing="4">
+                            <Label text="Raum" style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222;"/>
+                            <Label text="Verwalten Sie den Raum und die zugewiesenen Geräte."
+                                   style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                        </VBox>
+
+                        <GridPane hgap="12" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
                             <children>
-                                <Label text="Liste der angelegten"
-                                       style="-fx-font-size:18; -fx-font-weight:bold;"/>
-                                <Label text="Räume"
-                                       style="-fx-font-size:18; -fx-font-weight:bold;"/>
-                                <Label text="Eine Liste mit allen angelegten Räumen"
-                                       style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                                <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <Label fx:id="roomNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Größe:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <Label fx:id="roomSizeLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Gebäude:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <Label fx:id="roomHouseLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                             </children>
-                        </VBox>
+                        </GridPane>
 
-                        <!-- Container für die Zeilen (wird im Controller befüllt) -->
-                        <VBox fx:id="roomsContainer" spacing="10">
-                            <!-- Beispiel-Zeile -->
-                            <HBox spacing="8"
-                                  style="-fx-background-color:#f9f9f9; -fx-background-radius:20;
-                                         -fx-border-color:#cccccc; -fx-border-radius:20;">
-                                <padding>
-                                    <Insets top="6" bottom="6" left="16" right="6"/>
-                                </padding>
-
-                                <!-- Raumname -->
-                                <Label text="Wohnen"
-                                       HBox.hgrow="ALWAYS"
-                                       style="-fx-font-size:12;"/>
-
-                                <!-- Buttons -->
-                                <Button text="Bearbeiten"
-                                        onAction="#editRoom"
-                                        style="-fx-background-color:#333333; -fx-text-fill:white;
-                                               -fx-font-size:11; -fx-padding:4 14 4 14;"/>
-
-                                <Button text="Löschen"
-                                        onAction="#deleteRoom"
-                                        style="-fx-background-color:white; -fx-text-fill:#333333;
-                                               -fx-border-color:#333333; -fx-border-radius:16;
-                                               -fx-font-size:11; -fx-padding:4 14 4 14;"/>
-                            </HBox>
-                        </VBox>
-
+                        <HBox alignment="CENTER_RIGHT" spacing="10">
+                            <Button text="Bearbeiten" onAction="#editRoom"/>
+                            <Button text="Löschen" onAction="#deleteRoom"/>
+                        </HBox>
                     </children>
                 </VBox>
-                <!-- ========== POPUP: Lösch-Bestätigung ========== -->
-                <VBox fx:id="deletePopup"
-                      alignment="CENTER"
-                      visible="false" managed="false"
-                      style="-fx-background-color: rgba(0,0,0,0.25);">
+
+                <!-- DEVICES CARD -->
+                <VBox spacing="12" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                    <padding><Insets top="18" right="28" bottom="18" left="28"/></padding>
+
                     <children>
-                        <VBox spacing="15" alignment="CENTER"
-                              style="-fx-background-color:#e0e0e0; -fx-background-radius:20;"
-                              maxWidth="420" maxHeight="240">
-                            <padding>
-                                <Insets top="30" right="40" bottom="30" left="40"/>
-                            </padding>
-                            <children>
-                                <Label text="Wollen Sie den Raum"
-                                       style="-fx-font-size:18;"/>
-                                <Label text="wirklich löschen?"
-                                       style="-fx-font-size:18;"/>
-                                <!-- optional Raumname -->
-                                <Label fx:id="deleteRoomNameLabel"
-                                       text=""
-                                       style="-fx-font-size:12; -fx-text-fill:#555555;"/>
+                        <Label text="Geräte" style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222;"/>
 
-                                <HBox spacing="12" alignment="CENTER">
-                                    <Button text="JA"
-                                            onAction="#confirmDelete"
-                                            style="-fx-background-color:#333333; -fx-text-fill:white;
-                                               -fx-padding:4 18 4 18;"/>
-                                    <Button text="NEIN"
-                                            onAction="#cancelDelete"
-                                            style="-fx-background-color:white; -fx-text-fill:#333333;
-                                               -fx-border-color:#cccccc; -fx-border-radius:4;
-                                               -fx-padding:4 18 4 18;"/>
-                                </HBox>
-                            </children>
-                        </VBox>
+                        <!-- Assigned -->
+                        <Label text="Geräte im Raum" style="-fx-font-size:12; -fx-font-weight:bold;"/>
+                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                    style="-fx-background-color:transparent; -fx-padding:0;">
+                            <content>
+                                <VBox fx:id="assignedDevicesBox" spacing="10"/>
+                            </content>
+                        </ScrollPane>
+
+                        <Region prefHeight="8"/>
+
+                        <!-- Available -->
+                        <Label text="Verfügbare Geräte" style="-fx-font-size:12; -fx-font-weight:bold;"/>
+                        <ScrollPane fitToWidth="true" prefHeight="160"
+                                    style="-fx-background-color:transparent; -fx-padding:0;">
+                            <content>
+                                <VBox fx:id="availableDevicesBox" spacing="10"/>
+                            </content>
+                        </ScrollPane>
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="+ Gerät" onAction="#openCreateDevice"/>
+                        </HBox>
                     </children>
                 </VBox>
-            </children>
-        </StackPane>
-    </center>
 
-</BorderPane>
+                <HBox alignment="CENTER_RIGHT">
+                    <Button text="Zurück" onAction="#back"/>
+                </HBox>
+
+            </VBox>
+        </children>
+    </VBox>
+</AnchorPane>

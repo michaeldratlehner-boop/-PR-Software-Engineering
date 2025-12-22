@@ -1,9 +1,8 @@
 package at.jku.se.smarthome.model.devices.actors;
 
-import at.jku.se.smarthome.model.devices.Actor;
 import at.jku.se.smarthome.model.devices.sensors.TemperatureSensor;
 
-public class Heating extends Actor {
+public class Heating extends at.jku.se.smarthome.model.devices.actors.Actor {
     private double settedTemperature;
     private HeatingMode heatingMode;
     public Heating(String name, double settedTemperature, String roomId) {

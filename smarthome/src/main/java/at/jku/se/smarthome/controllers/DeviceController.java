@@ -3,11 +3,11 @@ package at.jku.se.smarthome.controllers;
 
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.factory.DeviceFactory;
-import at.jku.se.smarthome.model.devices.Actor;
-import at.jku.se.smarthome.model.devices.Sensor;
 import at.jku.se.smarthome.model.devices.SmartDevice;
+import at.jku.se.smarthome.model.devices.actors.Actor;
 import at.jku.se.smarthome.model.devices.sensors.LightSensor;
 import at.jku.se.smarthome.model.devices.sensors.LightSensorType;
+import at.jku.se.smarthome.model.devices.sensors.Sensor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -61,8 +61,6 @@ public class DeviceController {
                     "Bewegungsmelder",
                     "Steckdose",
                     "Lichtsteuerung",
-                    "Türsensor",
-                    "Fenstersensor",
                     "Türsteuerung",
                     "Heizungssteuerung",
                     "Rolladensteuerung",
@@ -138,7 +136,10 @@ public class DeviceController {
         LightSensor lightSensor = null;
         double brightnessVerge = 200;
         LightSensorType lightSensorType = LightSensorType.OUTDOOR;
-        String roomId = "1";
+        String roomId = (at.jku.se.State.CurrentRoom.getCurrentRoom() != null)
+                ? at.jku.se.State.CurrentRoom.getCurrentRoom().getId()
+                : null;
+
 
         SmartDevice device = DeviceFactory.create(
                 kind,

@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.sensors;
 
-import at.jku.se.smarthome.model.devices.Sensor;
-
 public class MotionSensor extends Sensor {
     private boolean motionDetected;
     public MotionSensor(String name, String roomId) {

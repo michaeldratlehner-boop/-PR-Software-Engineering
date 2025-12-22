@@ -1,6 +1,5 @@
 package at.jku.se.smarthome.model.devices.actors;
 
-import at.jku.se.smarthome.model.devices.Actor;
 import at.jku.se.smarthome.model.devices.sensors.LightSensor;
 
 public class ShutterControl extends Actor {

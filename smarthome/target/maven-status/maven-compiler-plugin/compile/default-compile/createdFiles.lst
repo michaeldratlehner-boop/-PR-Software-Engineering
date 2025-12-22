@@ -1,1 +1,6 @@
 at/jku/se/smarthome/util/AvatarStorage.class
+at/jku/se/State/CurrentRoom.class
+at/jku/se/smarthome/model/devices/actors/Actor.class
+at/jku/se/smarthome/model/devices/sensors/Sensor.class
+at/jku/se/smarthome/controllers/BuildingEditController.class
+at/jku/se/smarthome/service/DeviceService.class

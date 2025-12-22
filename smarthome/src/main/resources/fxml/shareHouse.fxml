@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.jku.se.smarthome.controllers.ShareHouseController"
+            style="-fx-background-color:#f2f2f2;">
+
+    <VBox prefWidth="980" prefHeight="640" alignment="TOP_CENTER">
+        <padding>
+            <Insets top="18" right="32" bottom="24" left="32"/>
+        </padding>
+
+        <!-- ZURÜCK (klickbar, nicht überdeckt) -->
+        <Hyperlink fx:id="backLink"
+                   text="← Zurück"
+                   onAction="#onBack"
+                   style="-fx-font-size:12; -fx-text-fill:#333333;"/>
+
+        <Region prefHeight="18"/>
+
+        <VBox spacing="18" prefWidth="904" maxWidth="904">
+
+            <!-- CARD 1: Personen einladen -->
+            <VBox spacing="12"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                <padding>
+                    <Insets top="24" right="28" bottom="24" left="28"/>
+                </padding>
+
+                <VBox spacing="2">
+                    <Label text="Personen einladen"
+                           style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222;"/>
+                    <Label text="Geben Sie die E-Mail des Nutzers ein."
+                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                </VBox>
+
+                <Region prefHeight="6"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <TextField fx:id="emailField"
+                               promptText="max.mustermann@beispiel.at"
+                               HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="inviteButton"
+                            text="Einladen"
+                            onAction="#onInvite"
+                            style="-fx-background-color:#333333; -fx-text-fill:white; -fx-padding:6 18 6 18;"/>
+                </HBox>
+            </VBox>
+
+            <!-- CARD 2: Liste freigegebene Personen -->
+            <VBox spacing="12"
+                  style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                <padding>
+                    <Insets top="24" right="28" bottom="24" left="28"/>
+                </padding>
+
+                <VBox spacing="2">
+                    <Label text="Liste der freigegebenen Personen"
+                           style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222;"/>
+                    <Label text="Liste mit allen freigegebenen Personen."
+                           style="-fx-font-size:11; -fx-text-fill:#555555;"/>
+                </VBox>
+
+                <Region prefHeight="6"/>
+
+                <ListView fx:id="accessList" prefHeight="320"/>
+            </VBox>
+
+        </VBox>
+    </VBox>
+
+</AnchorPane>

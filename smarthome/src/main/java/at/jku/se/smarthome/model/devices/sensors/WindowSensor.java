@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.sensors;
 
-import at.jku.se.smarthome.model.devices.Sensor;
-
 public class WindowSensor extends Sensor {
     public WindowState windowState;
     public WindowSensor(String name, String roomId) {

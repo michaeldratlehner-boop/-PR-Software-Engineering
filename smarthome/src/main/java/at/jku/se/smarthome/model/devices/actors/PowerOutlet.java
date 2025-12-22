@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.actors;
 
-import at.jku.se.smarthome.model.devices.Actor;
-
 public class PowerOutlet extends Actor {
     public PowerOutlet(String name, String roomId) {
         super(name, roomId);

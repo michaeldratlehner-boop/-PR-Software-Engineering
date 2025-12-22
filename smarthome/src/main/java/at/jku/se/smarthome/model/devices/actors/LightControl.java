@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.actors;
 
-import at.jku.se.smarthome.model.devices.Actor;
-
 public class LightControl extends Actor{
     private int brightness;
     public LightControl(String name, String roomId) {

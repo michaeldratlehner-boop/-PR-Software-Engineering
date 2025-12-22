@@ -77,4 +77,6 @@ public class HouseService {
     }
 
 
+    public void deleteHouse(String id) {
+    }
 }

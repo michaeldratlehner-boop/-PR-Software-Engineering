@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.sensors;
 
-import at.jku.se.smarthome.model.devices.Sensor;
-
 public class SmokeSensor extends Sensor {
     private boolean smokeDetected;
     public SmokeSensor(String name, String roomId) {

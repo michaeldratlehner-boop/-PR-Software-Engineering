@@ -1,7 +1,5 @@
 package at.jku.se.smarthome.model.devices.sensors;
 
-import at.jku.se.smarthome.model.devices.Sensor;
-
 public class DoorSensor extends Sensor{
     private DoorState doorState;
     public DoorSensor(String name, String roomId) {

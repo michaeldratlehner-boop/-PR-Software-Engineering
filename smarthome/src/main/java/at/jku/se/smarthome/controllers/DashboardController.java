@@ -19,25 +19,43 @@ public class DashboardController {
     @FXML private VBox addBuildingCard;
 
     @FXML
-    public void initialize(){
-        usernameLabel.setText(CurrentUser.getCurrentUser().getFirstName()+" "+CurrentUser.getCurrentUser().getLastName());
-         // Dummy-Werte setzen, später durch echte Logik ersetzen
-        roomsCount.setText("0");
-        devicesCount.setText("0");
-        rulesCount.setText("0");
-        sensorsCount.setText("0");
+    public void initialize() {
+        User u = CurrentUser.getCurrentUser();
+        if (u != null) {
+            usernameLabel.setText(u.getFirstName() + " " + u.getLastName());
+        } else {
+            usernameLabel.setText("-");
+        }
 
-        // Gebäude-Anzahl aus State berechnen
-        int buildingCount = getBuildngCount();
-        buildingsCount.setText(String.valueOf(buildingCount));
-
-        // Optional: "Gebäude hinzufügen"-Kachel nur zeigen, wenn 0 Gebäude
-        updateAddBuildingVisibility(buildingCount);
-    }
-    private int getBuildngCount(){
         AppState state = JsonStateService.getInstance().load();
+
+        // Gebäude
+        int buildingCount = getBuildingCount();
+        buildingsCount.setText(String.valueOf(buildingCount));
+        updateAddBuildingVisibility(buildingCount);
+
+        // Räume (nur fürs Haus des Users)
+        String houseId = (u != null) ? u.getHouseId() : null;
+        int roomCount = (houseId == null || houseId.isBlank()) ? 0 : state.getRoomsByHouseId(houseId).size();
+        roomsCount.setText(String.valueOf(roomCount));
+
+        // Geräte / Sensoren
+        int sensors = state.getAllSensors().size();
+        int actors = state.getAllActors().size();
+        devicesCount.setText(String.valueOf(sensors + actors));
+        sensorsCount.setText(String.valueOf(sensors));
+
+        // Regeln (noch nicht implementiert)
+        rulesCount.setText("0");
+    }
+
+    private int getBuildingCount() {
         User user = CurrentUser.getCurrentUser();
-        return state.getAllHousesForUser(user).size();
+        if (user == null) return 0;
+
+        String hid = user.getHouseId();
+        if (hid == null || hid.isBlank()) return 0;
+        return (user.getHouseId() == null || user.getHouseId().isBlank()) ? 0 : 1;
     }
 
     private void updateAddBuildingVisibility(int buildingCount) {
@@ -51,19 +69,11 @@ public class DashboardController {
     // Wird von onMouseClicked der Gebäude-Kachel aufgerufen
     @FXML
     private void openBuildings() {
-        int count = getBuildngCount();
-
-        if (count == 0) {
-            // noch keine Gebäude → direkt Formular
-            BuildingController.viewMode = BuildingController.ViewMode.CREATE;
-        } else {
-            // es gibt schon Gebäude → Liste anzeigen
-            BuildingController.viewMode = BuildingController.ViewMode.LIST;
-        }
-        App.setRoot("buildingCockpit"); // building.fxml
+        App.setRoot("buildingCockpit");
     }
 
-   @FXML
+
+    @FXML
     private void goDashboard(){
         App.setRoot("dashboard");
     }
@@ -72,10 +82,7 @@ public class DashboardController {
         App.setRoot("landingPage");
     }
 
-    @FXML
-    private void goRooms(){
-        App.setRoot("rooms");
-    }
+
     @FXML
     private void goSettings(){
         App.setRoot("settings");
@@ -92,25 +99,20 @@ public class DashboardController {
 
     @FXML
     private void goCreateBuilding() {
-        BuildingController.viewMode = BuildingController.ViewMode.CREATE;
-        App.setRoot("buildingCockpit");  // building.fxml laden
+        App.setRoot("buildingCockpit");
     }
+
     @FXML
     private void goBuildingCockpit() {
-        BuildingController.viewMode = BuildingController.ViewMode.LIST;
-        App.setRoot("buildingCockpit");  // buildingCockpit.fxml laden
+        App.setRoot("buildingCockpit");
     }
+
 
 
     @FXML
     private void goCreateRoom() {
         RoomController.editMode = false;// Edit-Modus deaktivieren
         App.setRoot("createRoom");  // createRoom.fxml laden
-    }
-
-    @FXML
-    private void goRoomCockpit() {
-        App.setRoot("roomCockpit");  // roomCockpit.fxml laden
     }
 
     @FXML
@@ -123,6 +125,10 @@ public class DashboardController {
     private void goCreateDevice() {
         DeviceController.viewMode = DeviceController.ViewMode.CREATE;
         App.setRoot("deviceCockpit");
+    }
+    @FXML
+    private void goRoomCockpit() {
+        App.setRoot("rooms");   // zuerst Liste, dort Raum auswählen
     }
 
 }
