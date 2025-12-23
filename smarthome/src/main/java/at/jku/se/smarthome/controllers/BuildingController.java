@@ -4,6 +4,8 @@ import at.jku.se.State.AppState;
 import at.jku.se.State.CurrentHouse;
 import at.jku.se.State.CurrentUser;
 import at.jku.se.State.JsonStateService;
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.model.House;
 import at.jku.se.smarthome.model.Room;
@@ -21,8 +23,10 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class BuildingController {
-
+    private final AppState state = AppState.getInstance();
+    private final AppStateQuery stateQuery = new AppStateQuery(state);
     private final HouseService houseService = new HouseService();
+    private final AppStateMutations appStateMutations = new AppStateMutations(state);
 
     // --- Left card: house ---
     @FXML private VBox noHouseBox;
@@ -53,12 +57,10 @@ public class BuildingController {
             return;
         }
 
-        AppState state = JsonStateService.getInstance().load();
-
         House house = null;
         String houseId = user.getHouseId();
         if (houseId != null && !houseId.isBlank()) {
-            house = state.getHouse(houseId);
+            house = stateQuery.getHouse(houseId);
         }
 
         CurrentHouse.setCurrentHouse(house);
@@ -144,7 +146,7 @@ public class BuildingController {
             return;
         }
 
-        List<Room> rooms = state.getRoomsByHouseId(house.getId());
+        List<Room> rooms = stateQuery.getRoomsByHouseId(house.getId());
         if (rooms.isEmpty()) {
             roomsListBox.getChildren().add(new Label("Noch keine Räume."));
             return;
@@ -166,7 +168,7 @@ public class BuildingController {
 
         unassignedRoomsListBox.getChildren().clear();
 
-        List<Room> unassigned = state.getAllRooms().stream()
+        List<Room> unassigned = stateQuery.getAllRooms().stream()
                 .filter(r -> r.getHouseId() == null || r.getHouseId().isBlank())
                 .toList();
 
@@ -198,13 +200,12 @@ public class BuildingController {
         House house = CurrentHouse.getCurrentHouse();
         if (house == null) return;
 
-        AppState state = JsonStateService.getInstance().load();
+        Room persistedRoom = stateQuery.getRoom(room.getId());
+        if (persistedRoom == null) return;
 
-        Room persisted = state.getRoom(room.getId());
-        if (persisted == null) return;
 
-        persisted.setHouseId(house.getId());
-        state.saveRoom(persisted);
+        persistedRoom.setHouseId(house.getId());
+        appStateMutations.saveRoom(persistedRoom);
 
         refreshView();
     }
@@ -212,10 +213,8 @@ public class BuildingController {
     private void deleteRoom(Room room) {
         if (room == null) return;
 
-        AppState state = JsonStateService.getInstance().load();
-
         // Raum löschen (persistiert)
-        state.deleteRoom(room.getId());
+        appStateMutations.deleteRoom(room.getId());
 
         // Optional: falls dein Room evtl. Geräte enthält und du diese auch entfernen willst,
         // müsstest du das hier zusätzlich machen (nur falls dein Modell das so braucht).
@@ -251,11 +250,10 @@ public class BuildingController {
         houseService.deleteHouse(house.getId());
 
         // 2) User entkoppeln (wichtig: houseId entfernen)
-        AppState state = JsonStateService.getInstance().load();
-        User persisted = state.getUser(user.getId());
+        User persisted = stateQuery.getUser(user.getId());
         if (persisted != null) {
             persisted.setHouseId(null);
-            state.saveUser(persisted);
+            appStateMutations.saveUser(persisted);
         }
 
         CurrentHouse.clearCurrentHouse();

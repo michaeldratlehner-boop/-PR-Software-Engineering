@@ -1,53 +1,55 @@
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/State/AppState.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/State/CurrentHouse.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/State/CurrentRoom.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/State/CurrentUser.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/State/JsonStateService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/App.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/Main.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/BuildingController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/BuildingEditController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/DashboardController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/DeviceController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/LandingPageController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/LoginController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/RegisterController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomCockpitController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/ShareHouseController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/UserCockpitController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/controllers/UserProfileEditController.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/factory/DeviceFactory.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/House.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/Room.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/User.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/SmartDevice.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/Actor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/AlarmState.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/AlarmSystem.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/DoorControl.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/Heating.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/HeatingMode.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/LightControl.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/PowerOutlet.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/ShutterControl.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/ShutterState.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/DoorSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/DoorState.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/LightSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/LightSensorType.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/MotionSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/Sensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/SmokeSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/TemperatureSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/WindowSensor.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/WindowState.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/DeviceService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/GeocodingService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/HouseService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/HouseShareService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/PasswordHasher.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/SimulationService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/service/UserService.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/util/AvatarStorage.java
-/Users/michaeldratlehner/Documents/GitHub/SE /smarthome/src/main/java/at/jku/se/smarthome/util/ViewLoader.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/AppState.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/CurrentHouse.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/CurrentRoom.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/CurrentUser.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/State/JsonStateService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/query/AppStateMutations.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/query/AppStateQuery.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/App.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/Main.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/BuildingController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/BuildingEditController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/DashboardController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/DeviceController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/LandingPageController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/LoginController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RegisterController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomCockpitController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/RoomController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/ShareHouseController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserCockpitController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/controllers/UserProfileEditController.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/factory/DeviceFactory.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/House.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/Room.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/User.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/SmartDevice.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/Actor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/AlarmState.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/AlarmSystem.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/DoorControl.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/Heating.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/HeatingMode.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/LightControl.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/PowerOutlet.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/ShutterControl.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/actors/ShutterState.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/DoorSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/DoorState.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/LightSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/LightSensorType.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/MotionSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/Sensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/SmokeSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/TemperatureSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/WindowSensor.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/model/devices/sensors/WindowState.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/DeviceService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/GeocodingService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/HouseShareService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/PasswordHasher.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/SimulationService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/service/UserService.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/util/AvatarStorage.java
+/Users/paultraxler/Desktop/-PR-Software-Engineering/smarthome/src/main/java/at/jku/se/smarthome/util/ViewLoader.java

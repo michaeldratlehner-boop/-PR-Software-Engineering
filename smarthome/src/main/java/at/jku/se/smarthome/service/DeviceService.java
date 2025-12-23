@@ -2,35 +2,29 @@ package at.jku.se.smarthome.service;
 
 import at.jku.se.State.AppState;
 import at.jku.se.State.JsonStateService;
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.model.devices.SmartDevice;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceService {
-    private final JsonStateService json = JsonStateService.getInstance();
-
-    private AppState load() {
-        return json.load();
-    }
-
-    private void save(AppState state) {
-        json.save(state);
-    }
+    private final AppState appState = AppState.getInstance();
+    private final AppStateQuery appStateQuery = new AppStateQuery(appState);
+    private final AppStateMutations appStateMutations = new AppStateMutations(appState);
 
     public List<SmartDevice> getDevicesInRoom(String roomId) {
-        AppState state = load();
         List<SmartDevice> result = new ArrayList<>();
-        for (SmartDevice d : state.getAllDevices()) { // falls Methode anders heißt: anpassen
+        for (SmartDevice d : appStateQuery.getAllDevices()) { // falls Methode anders heißt: anpassen
             if (roomId != null && roomId.equals(d.getRoomId())) result.add(d);
         }
         return result;
     }
 
     public List<SmartDevice> getUnassignedDevices() {
-        AppState state = load();
         List<SmartDevice> result = new ArrayList<>();
-        for (SmartDevice d : state.getAllDevices()) {
+        for (SmartDevice d : appStateQuery.getAllDevices()) {
             String rid = d.getRoomId();
             if (rid == null || rid.isBlank()) result.add(d);
         }
@@ -38,20 +32,16 @@ public class DeviceService {
     }
 
     public void assignDeviceToRoom(String deviceId, String roomId) {
-        AppState state = load();
-        SmartDevice d = state.getDevice(deviceId); // falls du so eine Methode hast
+        SmartDevice d = appStateQuery.getDevice(deviceId); // falls du so eine Methode hast
         if (d == null) throw new IllegalArgumentException("Gerät nicht gefunden");
         d.setRoomId(roomId);
-        state.saveDevice(d); // oder state.save() je nach Aufbau
-        save(state);
+        appStateMutations.saveDevice(d);
     }
 
     public void unassignDevice(String deviceId) {
-        AppState state = load();
-        SmartDevice d = state.getDevice(deviceId);
+        SmartDevice d = appStateQuery.getDevice(deviceId);
         if (d == null) throw new IllegalArgumentException("Gerät nicht gefunden");
         d.setRoomId(null);
-        state.saveDevice(d);
-        save(state);
+        appStateMutations.saveDevice(d);
     }
 }

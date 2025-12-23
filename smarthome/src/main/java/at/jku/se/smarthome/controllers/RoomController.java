@@ -3,6 +3,8 @@ package at.jku.se.smarthome.controllers;
 import at.jku.se.State.AppState;
 import at.jku.se.State.CurrentUser;
 import at.jku.se.State.JsonStateService;
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.model.Room;
 import javafx.event.ActionEvent;
@@ -41,8 +43,9 @@ public class RoomController {
     @FXML private Label deleteRoomNameLabel;
 
     private String roomIdToDelete = null;
-
-    private final JsonStateService jsonStateService = JsonStateService.getInstance();
+    private final AppState state = AppState.getInstance();
+    private final AppStateQuery q = new AppStateQuery(state);
+    private final AppStateMutations m = new AppStateMutations(state);
 
     @FXML
     public void initialize() {
@@ -117,12 +120,11 @@ public class RoomController {
             }
         }
 
-        AppState state = jsonStateService.load();
 
         // Raum anlegen/ändern
         Room room;
         if (editMode && selectedRoomId != null) {
-            room = state.getRoom(selectedRoomId);
+            room = q.getRoom(selectedRoomId);
             if (room == null) {
                 System.out.println("Raum zum Bearbeiten nicht gefunden.");
                 return;
@@ -136,7 +138,7 @@ public class RoomController {
         room.setName(name);
         room.setSizeSquareMeters(size);
 
-        state.saveRoom(room);
+        m.saveRoom(room);
 
         System.out.println("Raum gespeichert: " + room.getName() + " (id=" + room.getId() + ")");
 
@@ -162,8 +164,7 @@ public class RoomController {
     private void prefillEditForm() {
         if (selectedRoomId == null) return;
 
-        AppState state = jsonStateService.load();
-        Room room = state.getRoom(selectedRoomId);
+        Room room = q.getRoom(selectedRoomId);
         if (room == null) return;
 
         if (nameField != null) nameField.setText(room.getName() == null ? "" : room.getName());
@@ -184,10 +185,9 @@ public class RoomController {
             return;
         }
 
-        AppState state = jsonStateService.load();
         String houseId = CurrentUser.getCurrentUser().getHouseId();
 
-        List<Room> rooms = state.getRoomsByHouseId(houseId);
+        List<Room> rooms = q.getRoomsByHouseId(houseId);
 
         if (rooms.isEmpty()) {
             roomsContainer.getChildren().add(new Label("Noch keine Räume."));
@@ -248,8 +248,7 @@ public class RoomController {
 
         roomIdToDelete = id.toString();
 
-        AppState state = jsonStateService.load();
-        Room r = state.getRoom(roomIdToDelete);
+        Room r = q.getRoom(roomIdToDelete);
 
         if (deleteRoomNameLabel != null) {
             deleteRoomNameLabel.setText(r != null && r.getName() != null ? r.getName() : "");
@@ -277,8 +276,7 @@ public class RoomController {
             return;
         }
 
-        AppState state = jsonStateService.load();
-        state.deleteRoom(roomIdToDelete);
+        m.deleteRoom(roomIdToDelete);
 
         roomIdToDelete = null;
         if (deletePopup != null) {

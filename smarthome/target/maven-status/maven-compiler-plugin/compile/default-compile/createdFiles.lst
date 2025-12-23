@@ -1,3 +1,5 @@
+at/jku/se/query/AppStateMutations.class
+at/jku/se/query/AppStateQuery.class
 at/jku/se/smarthome/util/AvatarStorage.class
 at/jku/se/State/CurrentRoom.class
 at/jku/se/smarthome/model/devices/actors/Actor.class
