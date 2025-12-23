@@ -1,6 +1,8 @@
 package at.jku.se.smarthome.service;
 
 import at.jku.se.State.*;
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.model.User;
 import at.jku.se.smarthome.service.GeocodingService;
 import java.io.File;
@@ -8,15 +10,12 @@ import at.jku.se.smarthome.util.AvatarStorage;
 
 public class UserService {
     private final PasswordHasher passwordHasher = new PasswordHasher();
-    private final JsonStateService jsonStateService = JsonStateService.getInstance();
-
-    private AppState loadState() {
-        return jsonStateService.load();
-    }
+    private final AppState appState = AppState.getInstance();
+    private final AppStateQuery appStateQuery = new AppStateQuery(appState);
+    private final AppStateMutations appStateMutations = new AppStateMutations(appState);
 
     public User registerUser(String firstName, String lastName, String email, String password, String address) {
-        AppState state = loadState();
-        boolean exists = state.getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+        boolean exists = appStateQuery.getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
         if(exists) {
             throw new IllegalArgumentException("E-Mail ist bereits registriert");// User with this email already exists
         }
@@ -29,21 +28,20 @@ public class UserService {
             newUser.setLongitude(coords.lon);
         }
 
-        state.saveUser(newUser);
+        appStateMutations.saveUser(newUser);
 
         return newUser;
     }
 
     public User loginUser(String email, String password) {
-        AppState state = loadState();
 
-        for(User user : state.getAllUsers()) {
+        for(User user : appStateQuery.getAllUsers()) {
             if(user.getEmail().equalsIgnoreCase(email)) {
                 if(PasswordHasher.checkPassword(password, user.getPasswordHash())) {
 
                     CurrentUser.setCurrentUser(user);
                     if(user.getHouseId() != null) {
-                        CurrentHouse.setCurrentHouse(state.getHouse(user.getHouseId()));
+                        CurrentHouse.setCurrentHouse(appStateQuery.getHouse(user.getHouseId()));
                     }else{
                         CurrentHouse.setCurrentHouse(null);
                     }
@@ -57,8 +55,7 @@ public class UserService {
     }
 
     public User updateUserProfile(String userId, String firstName, String lastName, String newPassword, String address, File newAvatarFile) {
-        AppState state = loadState();
-        User user = state.getUser(userId);
+        User user = appStateQuery.getUser(userId);
         if(user == null) {
             throw new IllegalArgumentException("Benutzer nicht gefunden");
         }
@@ -96,15 +93,13 @@ public class UserService {
             user.setAvatarPath(avatarPath);
         }
 
-        state.saveUser(user);
+        appStateMutations.saveUser(user);
 
         return user;
     }
 
     public User registerUser(String firstName, String lastName, String email, String password, String address, File avatarFile) {
-        AppState state = loadState();
-
-        boolean exists = state.getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
+        boolean exists = appStateQuery.getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
         if (exists) throw new IllegalArgumentException("E-Mail ist bereits registriert");
 
         String hashedPassword = PasswordHasher.hashPassword(password);
@@ -121,7 +116,7 @@ public class UserService {
             newUser.setAvatarPath(avatarPath);
         }
 
-        state.saveUser(newUser);
+        appStateMutations.saveUser(newUser);
         return newUser;
     }
 

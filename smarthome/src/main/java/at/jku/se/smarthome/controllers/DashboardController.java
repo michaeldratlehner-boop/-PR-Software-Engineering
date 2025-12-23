@@ -2,6 +2,7 @@ package at.jku.se.smarthome.controllers;
 
 import at.jku.se.State.AppState;
 import at.jku.se.State.JsonStateService;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.model.User;
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ public class DashboardController {
     @FXML private Label buildingsCount;
     @FXML private VBox addBuildingCard;
 
+    private final AppState state = AppState.getInstance();
+    private final AppStateQuery q = new AppStateQuery(state);
+
     @FXML
     public void initialize() {
         User u = CurrentUser.getCurrentUser();
@@ -27,7 +31,6 @@ public class DashboardController {
             usernameLabel.setText("-");
         }
 
-        AppState state = JsonStateService.getInstance().load();
 
         // Gebäude
         int buildingCount = getBuildingCount();
@@ -36,12 +39,12 @@ public class DashboardController {
 
         // Räume (nur fürs Haus des Users)
         String houseId = (u != null) ? u.getHouseId() : null;
-        int roomCount = (houseId == null || houseId.isBlank()) ? 0 : state.getRoomsByHouseId(houseId).size();
+        int roomCount = (houseId == null || houseId.isBlank()) ? 0 : q.getRoomsByHouseId(houseId).size();
         roomsCount.setText(String.valueOf(roomCount));
 
         // Geräte / Sensoren
-        int sensors = state.getAllSensors().size();
-        int actors = state.getAllActors().size();
+        int sensors = (u == null) ? 0 : q.countSensorsForHouse(u.getHouseId());
+        int actors = (houseId == null || houseId.isBlank()) ? 0 : q.countActorsForHouse(houseId);
         devicesCount.setText(String.valueOf(sensors + actors));
         sensorsCount.setText(String.valueOf(sensors));
 

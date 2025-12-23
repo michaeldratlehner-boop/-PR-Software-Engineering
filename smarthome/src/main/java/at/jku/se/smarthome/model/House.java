@@ -2,6 +2,7 @@ package at.jku.se.smarthome.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class House {
     private String houseId;
@@ -17,6 +18,7 @@ public class House {
 
     public House(String name, int floors, String address) {
 
+        this.houseId = UUID.randomUUID().toString();
         this.name = name;
         this.floors = floors;
         this.address = address;

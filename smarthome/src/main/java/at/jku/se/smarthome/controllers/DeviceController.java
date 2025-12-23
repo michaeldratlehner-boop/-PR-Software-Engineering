@@ -1,6 +1,8 @@
 package at.jku.se.smarthome.controllers;
 
 
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.factory.DeviceFactory;
 import at.jku.se.smarthome.model.devices.SmartDevice;
@@ -44,6 +46,10 @@ public class DeviceController {
     @FXML private VBox deletePopup;
     @FXML private Label deleteDeviceNameLabel;
     private HBox rowToDelete;
+
+    private final AppState state = AppState.getInstance();
+    private final AppStateQuery q = new AppStateQuery(state);
+    private final AppStateMutations m = new AppStateMutations(state);
 
     @FXML
     public void initialize() {
@@ -152,10 +158,10 @@ public class DeviceController {
         );
 
         if(device instanceof Sensor sensor) {
-            AppState.getInstance().saveSensor(sensor);
+            m.saveSensor(sensor);
             System.out.println("Sensor gespeichert: " + sensor.getName());
         } else if(device instanceof Actor actor) {
-            AppState.getInstance().saveActor(actor);
+            m.saveActor(actor);
             System.out.println("Aktor gespeichert: " + actor.getName());
         } else {
             System.out.println("Unbekannter Gerätetyp");

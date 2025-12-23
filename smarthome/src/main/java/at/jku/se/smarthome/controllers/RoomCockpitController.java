@@ -5,6 +5,8 @@ import at.jku.se.State.CurrentHouse;
 import at.jku.se.State.CurrentRoom;
 import at.jku.se.State.CurrentUser;
 import at.jku.se.State.JsonStateService;
+import at.jku.se.query.AppStateMutations;
+import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.model.House;
 import at.jku.se.smarthome.model.Room;
@@ -23,7 +25,9 @@ import java.util.List;
 public class RoomCockpitController {
 
     private final DeviceService deviceService = new DeviceService();
-    private final JsonStateService json = JsonStateService.getInstance();
+    private final AppState state = AppState.getInstance();
+    private final AppStateMutations appStateMutations = new AppStateMutations(state);
+    private final AppStateQuery stateQuery = new AppStateQuery(state);
 
     // ====== DETAIL (roomCockpit.fxml) ======
     @FXML private Label roomNameLabel;
@@ -64,7 +68,6 @@ public class RoomCockpitController {
     private void loadRoomsList() {
         roomsBox.getChildren().clear();
 
-        AppState state = json.load();
 
         String houseId = (CurrentUser.getCurrentUser() != null) ? CurrentUser.getCurrentUser().getHouseId() : null;
         if (houseId == null || houseId.isBlank()) {
@@ -73,10 +76,10 @@ public class RoomCockpitController {
         }
 
         // CurrentHouse optional korrekt setzen
-        House h = state.getHouse(houseId);
+        House h = stateQuery.getHouse(houseId);
         CurrentHouse.setCurrentHouse(h);
 
-        List<Room> rooms = state.getRoomsByHouseId(houseId);
+        List<Room> rooms = stateQuery.getRoomsByHouseId(houseId);
         if (rooms.isEmpty()) {
             showEmpty("Keine Räume vorhanden.");
             return;
@@ -157,9 +160,8 @@ public class RoomCockpitController {
     // ==========================
 
     private void refreshDetail() {
-        AppState state = json.load();
 
-        Room latest = state.getRoom(room.getId());
+        Room latest = stateQuery.getRoom(room.getId());
         if (latest != null) {
             room = latest;
             CurrentRoom.setCurrentRoom(room);
@@ -170,7 +172,7 @@ public class RoomCockpitController {
 
         String hid = room.getHouseId();
         if (hid != null && !hid.isBlank()) {
-            House h = state.getHouse(hid);
+            House h = stateQuery.getHouse(hid);
             roomHouseLabel.setText(h != null && h.getName() != null ? h.getName() : "-");
         } else {
             roomHouseLabel.setText("-");
@@ -241,10 +243,7 @@ public class RoomCockpitController {
 
     @FXML
     private void deleteRoom() {
-        AppState state = json.load();
-        state.deleteRoom(room.getId());
-        json.save(state);
-
+        appStateMutations.deleteRoom(room.getId());
         CurrentRoom.setCurrentRoom(null);
         App.setRoot("rooms");
     }
@@ -261,19 +260,9 @@ public class RoomCockpitController {
     }
 
     private void deleteRoomFromList(Room r) {
-        AppState state = json.load();
-
         // Geräte, die in diesem Raum sind -> roomId entfernen (sonst "hängende" Zuordnung)
-        for (var d : state.getAllDevices()) { // falls bei dir anders heißt: getAllDevices()
-            if (r.getId() != null && r.getId().equals(d.getRoomId())) {
-                d.setRoomId(null);
-                state.saveDevice(d); // falls du das hast; sonst später json.save(state) reicht ggf.
-            }
-        }
-
-        state.deleteRoom(r.getId()); // du hast diese Methode schon verwendet
-        json.save(state);
-
+        if(r == null) return;
+        appStateMutations.deleteRoom(r.getId());
         // UI neu laden
         loadRoomsList();
     }
