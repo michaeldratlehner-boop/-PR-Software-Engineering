@@ -1,212 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="at.jku.se.smarthome.controllers.DeviceController"
-            style="-fx-background-color:#f2f2f2;"
-            prefWidth="820" prefHeight="640">
+            prefWidth="900" prefHeight="650"
+            style="-fx-background-color: white;">
 
-    <!-- Zurück zur Startseite oben links -->
+    <!-- Back-Link wie im Screenshot -->
     <top>
-        <HBox alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="10">
             <padding>
-                <Insets top="15" right="20" bottom="10" left="25"/>
+                <Insets top="14" right="18" bottom="10" left="18"/>
             </padding>
+
             <children>
-                <Button text="←  Zurück zur Startseite"
-                        style="-fx-background-color:transparent; -fx-text-fill:#333333;"
-                        onAction="#backToDashboard"/>
+                <Hyperlink text="← Zurück zur Startseite"
+                           onAction="#backToDashboard"
+                           style="-fx-text-fill:#222222; -fx-font-size:12; -fx-underline:false;"/>
             </children>
         </HBox>
     </top>
 
     <center>
-        <StackPane alignment="TOP_CENTER">
+        <StackPane alignment="CENTER">
             <padding>
-                <Insets top="20" right="0" bottom="20" left="0"/>
+                <Insets top="10" right="0" bottom="10" left="0"/>
             </padding>
+
             <children>
 
-                <!-- ========== LISTE: Geräte/Sensoren ========= -->
+                <!-- LIST CARD (optional, falls du weiterhin Liste + Form willst) -->
                 <VBox fx:id="listCard"
+                      visible="true" managed="true"
                       alignment="TOP_CENTER"
-                      maxWidth="520"
-                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                      maxWidth="780"
+                      style="-fx-background-color:#e0e0e0; -fx-background-radius:22;">
                     <padding>
-                        <Insets top="24" right="40" bottom="24" left="40"/>
+                        <Insets top="18" right="22" bottom="18" left="22"/>
                     </padding>
 
                     <children>
-                        <!-- Überschrift -->
-                        <VBox spacing="2">
-                            <children>
-                                <Label text="Liste der angelegten"
-                                       style="-fx-font-size:16; -fx-font-weight:bold;"/>
-                                <Label text="Geräte/Sensoren"
-                                       style="-fx-font-size:16; -fx-font-weight:bold;"/>
-                                <Label text="Verwalten Sie Ihre Geräte und Sensoren"
-                                       wrapText="true"
-                                       style="-fx-font-size:11; -fx-text-fill:#555555;"/>
-                            </children>
-                        </VBox>
 
-                        <!-- Liste der Geräte (dynamisch) -->
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Geräte/Sensoren"
+                                       style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222222;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="+ Gerät"
+                                        onAction="#createDevice"
+                                        style="-fx-background-color: transparent;
+                                               -fx-border-color:#2b9cff;
+                                               -fx-text-fill:#2b9cff;
+                                               -fx-border-radius:4;
+                                               -fx-background-radius:4;
+                                               -fx-padding:4 12 4 12;"/>
+                            </children>
+                        </HBox>
+
+                        <Label text="Verwalten Sie Ihre Geräte und Sensoren"
+                               style="-fx-text-fill:#666666; -fx-font-size:11;"/>
+
                         <VBox fx:id="devicesListBox" spacing="10">
-                            <!-- Beispiel-Eintrag -->
-                            <HBox alignment="CENTER_LEFT" spacing="10"
+                            <HBox alignment="CENTER_LEFT" spacing="12"
                                   style="-fx-background-color:white;
-                                         -fx-background-radius:20;
-                                         -fx-border-radius:20;
+                                         -fx-background-radius:16;
+                                         -fx-border-radius:16;
                                          -fx-border-color:#cccccc;">
                                 <padding>
-                                    <Insets top="6" right="10" bottom="6" left="20"/>
+                                    <Insets top="10" right="14" bottom="10" left="16"/>
                                 </padding>
+
                                 <children>
-                                    <Label fx:id="exampleDeviceLabel"
-                                           text="TemperaturSensor_01"
-                                           style="-fx-font-size:12;"/>
+                                    <VBox spacing="2" alignment="CENTER_LEFT">
+                                        <children>
+                                            <Label fx:id="exampleDeviceLabel"
+                                                   text="TemperaturSensor_01"
+                                                   style="-fx-font-size:13; -fx-font-weight:bold; -fx-text-fill:#222222;"/>
+                                            <Label text="Sensor"
+                                                   style="-fx-font-size:11; -fx-text-fill:#666666;"/>
+                                        </children>
+                                    </VBox>
+
                                     <Region HBox.hgrow="ALWAYS"/>
 
                                     <Button text="Bearbeiten"
                                             onAction="#editSelectedDevice"
-                                            style="-fx-background-color:#333333;
-                                                   -fx-text-fill:white;
-                                                   -fx-padding:3 10 3 10;"/>
+                                            style="-fx-background-color:#efefef;
+                                                   -fx-text-fill:#222222;
+                                                   -fx-border-color:#cfcfcf;
+                                                   -fx-border-radius:4;
+                                                   -fx-background-radius:4;
+                                                   -fx-padding:4 12 4 12;"/>
 
                                     <Button text="Löschen"
                                             onAction="#deleteDevice"
-                                            style="-fx-background-color:#333333;
-                                                   -fx-text-fill:white;
-                                                   -fx-padding:3 10 3 10;"/>
+                                            style="-fx-background-color:#efefef;
+                                                   -fx-text-fill:#222222;
+                                                   -fx-border-color:#cfcfcf;
+                                                   -fx-border-radius:4;
+                                                   -fx-background-radius:4;
+                                                   -fx-padding:4 12 4 12;"/>
+
+                                    <Button text="Öffnen"
+                                            onAction="#openDevice"
+                                            style="-fx-background-color:#efefef;
+                                                   -fx-text-fill:#222222;
+                                                   -fx-border-color:#cfcfcf;
+                                                   -fx-border-radius:4;
+                                                   -fx-background-radius:4;
+                                                   -fx-padding:4 12 4 12;"/>
                                 </children>
                             </HBox>
                         </VBox>
+
                     </children>
                 </VBox>
 
-                <!-- ========== FORMULAR: Gerät/Sensor hinzufügen / bearbeiten ========= -->
+                <!-- FORM CARD (Design wie dein Screenshot “Raum hinzufügen”) -->
                 <VBox fx:id="formCard"
-                      alignment="TOP_CENTER" spacing="20"
-                      maxWidth="520"
-                      style="-fx-background-color:#e0e0e0; -fx-background-radius:20;">
+                      visible="false" managed="false"
+                      alignment="TOP_LEFT"
+                      maxWidth="560"
+                      style="-fx-background-color:#e0e0e0; -fx-background-radius:22;">
                     <padding>
-                        <Insets top="24" right="40" bottom="32" left="40"/>
+                        <Insets top="22" right="26" bottom="22" left="26"/>
                     </padding>
 
                     <children>
 
-                        <!-- Überschrift -->
-                        <VBox spacing="4" alignment="CENTER_LEFT">
-                            <children>
-                                <Label fx:id="formTitleLabel"
-                                       text="Gerät/Sensor hinzufügen"
-                                       style="-fx-font-size:18; -fx-font-weight:bold;"/>
-                                <Label fx:id="formSubtitleLabel"
-                                       text="Fügen Sie Ihrem Haus oder Ihrer Wohnung ein Gerät/Sensor hinzu"
-                                       style="-fx-font-size:11; -fx-text-fill:#666666;"/>
-                            </children>
-                        </VBox>
+                        <Label fx:id="formTitleLabel"
+                               text="Gerät/Sensor hinzufügen"
+                               style="-fx-font-size:18; -fx-font-weight:bold; -fx-text-fill:#222222;"/>
 
-                        <!-- Formular -->
-                        <VBox spacing="12" maxWidth="Infinity">
+                        <Label fx:id="formSubtitleLabel"
+                               text="Fügen Sie Ihrem Haus oder Wohnung ein Gerät/Sensor hinzu"
+                               style="-fx-text-fill:#666666; -fx-font-size:11;"/>
 
-                            <!-- Name -->
+                        <Region prefHeight="14"/>
+
+                        <!-- Formular-Layout wie bei Räume (Labels links, Fields darunter) -->
+                        <VBox spacing="10">
+
                             <VBox spacing="4">
-                                <children>
-                                    <Label text="Name*" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <TextField fx:id="deviceNameField"
-                                               promptText="TemperaturSensor_01"/>
-                                </children>
+                                <Label text="Name*"
+                                       style="-fx-text-fill:#222222; -fx-font-size:11;"/>
+                                <TextField fx:id="deviceNameField"
+                                           promptText="z.B. Wohnzimmer-Licht"
+                                           style="-fx-background-color:white; -fx-background-radius:3; -fx-border-radius:3;"/>
                             </VBox>
 
-                            <!-- Typ -->
                             <VBox spacing="4">
-                                <children>
-                                    <Label text="Typ*" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <TextField fx:id="deviceTypeField"
-                                               promptText="Temperatursensor"/>
-                                </children>
+                                <Label text="Gerätetyp"
+                                       style="-fx-text-fill:#222222; -fx-font-size:11;"/>
+                                <TextField fx:id="deviceTypeField"
+                                           promptText="optional"
+                                           style="-fx-background-color:white; -fx-background-radius:3; -fx-border-radius:3;"/>
                             </VBox>
 
-                            <!-- Gerät/Sensor Auswahl -->
                             <VBox spacing="4">
-                                <children>
-                                    <Label text="Gerät/Sensor*" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <ComboBox fx:id="deviceKindCombo"
-                                              promptText="Gerät/Sensor auswählen"/>
-                                </children>
+                                <Label text="Geräteart"
+                                       style="-fx-text-fill:#222222; -fx-font-size:11;"/>
+                                <ComboBox fx:id="deviceKindCombo"
+                                          promptText="Bitte auswählen"
+                                          style="-fx-background-color:white; -fx-background-radius:3; -fx-border-radius:3;"/>
                             </VBox>
 
-                            <!-- WLAN-Passwort -->
                             <VBox spacing="4">
-                                <children>
-                                    <Label text="WLAN-Passwort*" style="-fx-font-size:11; -fx-text-fill:#333333;"/>
-                                    <PasswordField fx:id="wifiPasswordField"
-                                                   promptText="************"/>
-                                </children>
+                                <Label text="WLAN Passwort"
+                                       style="-fx-text-fill:#222222; -fx-font-size:11;"/>
+                                <PasswordField fx:id="wifiPasswordField"
+                                               promptText="optional"
+                                               style="-fx-background-color:white; -fx-background-radius:3; -fx-border-radius:3;"/>
                             </VBox>
 
                         </VBox>
 
-                        <!-- Buttons -->
-                        <HBox spacing="10" alignment="CENTER">
-                            <padding>
-                                <Insets top="18" right="0" bottom="0" left="0"/>
-                            </padding>
+                        <Region prefHeight="18"/>
+
+                        <!-- Buttons wie im Screenshot (zentriert, dunkel + hell) -->
+                        <HBox alignment="CENTER" spacing="14">
                             <children>
                                 <Button text="Speichern"
                                         onAction="#saveDevice"
-                                        style="-fx-background-color:#333333; -fx-text-fill:white; -fx-padding:4 20 4 20;"/>
+                                        style="-fx-background-color:#2b2b2b;
+                                               -fx-text-fill:white;
+                                               -fx-border-radius:4;
+                                               -fx-background-radius:4;
+                                               -fx-padding:6 22 6 22;"/>
+
                                 <Button text="Abbrechen"
                                         onAction="#cancel"
-                                        style="-fx-background-color:white; -fx-text-fill:#333333;
-                                               -fx-border-color:#cccccc; -fx-border-radius:4;
-                                               -fx-padding:4 20 4 20;"/>
+                                        style="-fx-background-color:white;
+                                               -fx-text-fill:#222222;
+                                               -fx-border-color:#cfcfcf;
+                                               -fx-border-radius:4;
+                                               -fx-background-radius:4;
+                                               -fx-padding:6 22 6 22;"/>
                             </children>
                         </HBox>
 
                     </children>
                 </VBox>
 
-                <!-- ========== POPUP: Gerät löschen bestätigen ========= -->
+                <!-- DELETE POPUP (optional) -->
                 <VBox fx:id="deletePopup"
-                      alignment="CENTER"
                       visible="false" managed="false"
-                      style="-fx-background-color: rgba(0,0,0,0.25);">
+                      maxWidth="420"
+                      style="-fx-background-color:white;
+                             -fx-background-radius:16;
+                             -fx-border-radius:16;
+                             -fx-border-color:#cccccc;">
+                    <padding>
+                        <Insets top="16" right="16" bottom="16" left="16"/>
+                    </padding>
+
                     <children>
-                        <VBox spacing="15" alignment="CENTER"
-                              style="-fx-background-color:#e0e0e0; -fx-background-radius:20;"
-                              maxWidth="420" maxHeight="240">
-                            <padding>
-                                <Insets top="30" right="40" bottom="30" left="40"/>
-                            </padding>
-                            <children>
-                                <Label text="Wollen Sie das Gerät"
-                                       style="-fx-font-size:18;"/>
-                                <Label text="wirklich löschen?"
-                                       style="-fx-font-size:18;"/>
+                        <Label text="Gerät löschen?"
+                               style="-fx-font-size:16; -fx-font-weight:bold; -fx-text-fill:#222222;"/>
 
-                                <Label fx:id="deleteDeviceNameLabel"
-                                       text=""
-                                       style="-fx-font-size:12; -fx-text-fill:#555555;"/>
+                        <Label fx:id="deleteDeviceNameLabel"
+                               text="(Gerät)"
+                               style="-fx-text-fill:#666666;"/>
 
-                                <HBox spacing="12" alignment="CENTER">
-                                    <Button text="JA"
-                                            onAction="#confirmDeleteDevice"
-                                            style="-fx-background-color:#333333; -fx-text-fill:white;
-                                                   -fx-padding:4 18 4 18;"/>
-                                    <Button text="NEIN"
-                                            onAction="#cancelDeleteDevice"
-                                            style="-fx-background-color:white; -fx-text-fill:#333333;
-                                                   -fx-border-color:#cccccc; -fx-border-radius:4;
-                                                   -fx-padding:4 18 4 18;"/>
-                                </HBox>
-                            </children>
-                        </VBox>
+                        <Separator/>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="10">
+                            <Button text="Abbrechen"
+                                    onAction="#cancelDeleteDevice"
+                                    style="-fx-background-color:#efefef;
+                                           -fx-text-fill:#222222;
+                                           -fx-border-color:#cfcfcf;
+                                           -fx-border-radius:4;
+                                           -fx-background-radius:4;
+                                           -fx-padding:6 18 6 18;"/>
+
+                            <Button text="Löschen"
+                                    onAction="#confirmDeleteDevice"
+                                    style="-fx-background-color:#ff4d4d;
+                                           -fx-text-fill:white;
+                                           -fx-border-radius:4;
+                                           -fx-background-radius:4;
+                                           -fx-padding:6 18 6 18;"/>
+                        </HBox>
                     </children>
                 </VBox>
 
