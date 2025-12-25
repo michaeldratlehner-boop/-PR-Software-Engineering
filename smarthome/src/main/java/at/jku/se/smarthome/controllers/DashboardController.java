@@ -43,8 +43,10 @@ public class DashboardController {
         roomsCount.setText(String.valueOf(roomCount));
 
         // Geräte / Sensoren
-        int sensors = (u == null) ? 0 : q.countSensorsForHouse(u.getHouseId());
-        int actors = (houseId == null || houseId.isBlank()) ? 0 : q.countActorsForHouse(houseId);
+        // Geräte / Sensoren: direkt aus AppState zählen (funktioniert auch wenn roomId/houseId noch nicht gesetzt ist)
+        int sensors = state.getSensors() == null ? 0 : state.getSensors().size();
+        int actors  = state.getActors()  == null ? 0 : state.getActors().size();
+
         devicesCount.setText(String.valueOf(sensors + actors));
         sensorsCount.setText(String.valueOf(sensors));
 

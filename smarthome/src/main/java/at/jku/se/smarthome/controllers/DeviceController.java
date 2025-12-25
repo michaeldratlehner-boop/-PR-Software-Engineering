@@ -1,10 +1,13 @@
 package at.jku.se.smarthome.controllers;
 
-
+import at.jku.se.State.AppState;
+import at.jku.se.State.CurrentRoom;
+import at.jku.se.State.JsonStateService;
 import at.jku.se.query.AppStateMutations;
 import at.jku.se.query.AppStateQuery;
 import at.jku.se.smarthome.App;
 import at.jku.se.smarthome.factory.DeviceFactory;
+import at.jku.se.smarthome.model.Room;
 import at.jku.se.smarthome.model.devices.SmartDevice;
 import at.jku.se.smarthome.model.devices.actors.Actor;
 import at.jku.se.smarthome.model.devices.sensors.LightSensor;
@@ -12,19 +15,14 @@ import at.jku.se.smarthome.model.devices.sensors.LightSensorType;
 import at.jku.se.smarthome.model.devices.sensors.Sensor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import at.jku.se.State.*;
+import javafx.scene.layout.*;
 
 public class DeviceController {
 
-    public enum ViewMode {
-        LIST,
-        CREATE,
-        EDIT
-    }
-
+    public enum ViewMode { LIST, CREATE, EDIT }
     public static ViewMode viewMode = ViewMode.LIST;
 
     // List-View
@@ -46,6 +44,10 @@ public class DeviceController {
     @FXML private VBox deletePopup;
     @FXML private Label deleteDeviceNameLabel;
     private HBox rowToDelete;
+    private String deviceIdToDelete;
+
+    // (optional) gemerktes Device für EDIT/OPEN
+    private String selectedDeviceId;
 
     private final AppState state = AppState.getInstance();
     private final AppStateQuery q = new AppStateQuery(state);
@@ -53,33 +55,36 @@ public class DeviceController {
 
     @FXML
     public void initialize() {
-
-        // Beispielgerät für die Liste
         if (exampleDeviceLabel != null) {
             exampleDeviceLabel.setText("TemperaturSensor_01");
         }
 
-        // Gerät/Sensor Auswahl (ComboBox)
         if (deviceKindCombo != null) {
             deviceKindCombo.getItems().setAll(
                     "Temperatursensor",
                     "Lichtsensor",
                     "Bewegungsmelder",
+                    "Rauchmelder",
                     "Steckdose",
                     "Lichtsteuerung",
-                    "Türsteuerung",
-                    "Heizungssteuerung",
                     "Rolladensteuerung",
-                    "Lichtsteuerung",
-                    "Alarmsystem",
-                    "Rauchmelder"
+                    "Heizungssteuerung",
+                    "Türsteuerung",
+                    "Alarmsystem"
             );
         }
 
+        // falls deletePopup im FXML fehlt oder noch nicht genutzt wird:
+        if (deletePopup != null) {
+            deletePopup.setVisible(false);
+            deletePopup.setManaged(false);
+        }
+
         updateView();
+        refreshDeviceList();
     }
 
-    // -------- View-Umschalten --------
+    // ---------------- View Umschalten ----------------
 
     private void updateView() {
         if (listCard == null || formCard == null) return;
@@ -97,6 +102,8 @@ public class DeviceController {
 
         formCard.setVisible(false);
         formCard.setManaged(false);
+
+        refreshDeviceList();
     }
 
     private void showForm(boolean edit) {
@@ -109,7 +116,7 @@ public class DeviceController {
         if (edit) {
             formTitleLabel.setText("Gerät/Sensor bearbeiten");
             formSubtitleLabel.setText("Bearbeiten Sie die Eigenschaften des Geräts/Sensors");
-            // TODO: ausgewähltes Gerät laden
+            // TODO: ausgewähltes Gerät in Felder laden (wenn du Edit wirklich brauchst)
         } else {
             formTitleLabel.setText("Gerät/Sensor hinzufügen");
             formSubtitleLabel.setText("Fügen Sie Ihrem Haus oder Ihrer Wohnung ein Gerät/Sensor hinzu");
@@ -124,7 +131,7 @@ public class DeviceController {
         if (wifiPasswordField != null) wifiPasswordField.clear();
     }
 
-    // -------- Navigation oben/unten --------
+    // ---------------- Navigation ----------------
 
     @FXML
     private void backToDashboard() {
@@ -132,20 +139,37 @@ public class DeviceController {
     }
 
     @FXML
+    private void createDevice() {
+        viewMode = ViewMode.CREATE;
+        updateView();
+    }
+
+    @FXML
+    private void cancel() {
+        // für Tests: zurück zur Liste, nicht Dashboard
+        viewMode = ViewMode.LIST;
+        updateView();
+    }
+
+    // ---------------- Speichern (wichtig für Counter + Liste) ----------------
+
+    @FXML
     private void saveDevice() {
         String name = deviceNameField.getText();
-        String type = deviceTypeField.getText();
         String kind = deviceKindCombo.getValue();
-        String wifi = wifiPasswordField.getText();
+
+        if (name == null || name.isBlank() || kind == null || kind.isBlank()) {
+            System.out.println("Bitte Name und Geräteart auswählen!");
+            return;
+        }
 
         double settedTemp = 22.0;
         LightSensor lightSensor = null;
         double brightnessVerge = 200;
         LightSensorType lightSensorType = LightSensorType.OUTDOOR;
-        String roomId = (at.jku.se.State.CurrentRoom.getCurrentRoom() != null)
-                ? at.jku.se.State.CurrentRoom.getCurrentRoom().getId()
-                : null;
 
+        // ✅ immer unassigned anlegen
+        String roomId = null;
 
         SmartDevice device = DeviceFactory.create(
                 kind,
@@ -157,52 +181,51 @@ public class DeviceController {
                 lightSensorType
         );
 
-        if(device instanceof Sensor sensor) {
+        if (device instanceof Sensor sensor) {
             m.saveSensor(sensor);
             System.out.println("Sensor gespeichert: " + sensor.getName());
-        } else if(device instanceof Actor actor) {
+        } else if (device instanceof Actor actor) {
             m.saveActor(actor);
             System.out.println("Aktor gespeichert: " + actor.getName());
         } else {
             System.out.println("Unbekannter Gerätetyp");
+            return;
         }
 
-        if (viewMode == ViewMode.EDIT) {
-            System.out.println("Gerät aktualisieren:");
-        } else {
-            System.out.println("Gerät speichern:");
+        // ✅ Persistieren
+        JsonStateService.getInstance().save(state);
+
+        // ✅ Wenn wir aus einem Raum heraus "Gerät hinzufügen" gedrückt haben:
+        // zurück ins RoomCockpit, damit es sofort in "Verfügbare Geräte" auftaucht.
+        if (CurrentRoom.getCurrentRoom() != null) {
+            App.setRoot("roomCockpit");
+            return;
         }
 
-        System.out.println("Name: " + name);
-        System.out.println("Typ: " + type);
-        System.out.println("Auswahl: " + kind);
-        System.out.println("WLAN-Passwort: " + wifi);
-
-        if (viewMode == ViewMode.EDIT) {
-            viewMode = ViewMode.LIST;
-            updateView();
-        } else {
-            App.setRoot("dashboard");
-        }
+        // sonst zurück zur Liste im DeviceCockpit
+        viewMode = ViewMode.LIST;
+        updateView();
     }
 
-    @FXML
-    private void cancel() {
-        if (viewMode == ViewMode.EDIT) {
-            viewMode = ViewMode.LIST;
-            updateView();
-        } else {
-            App.setRoot("dashboard");
-        }
-    }
-
-    // -------- Aktionen in der Liste --------
+    // ---------------- Liste Actions ----------------
 
     @FXML
     private void editSelectedDevice() {
-        // später: ausgewähltes Gerät laden
+        // TODO: selectedDeviceId setzen und Felder befüllen
         viewMode = ViewMode.EDIT;
-        showForm(true);
+        updateView();
+    }
+
+    @FXML
+    private void openDevice(ActionEvent event) {
+        Button sourceButton = (Button) event.getSource();
+        HBox row = (HBox) sourceButton.getParent();
+
+        Object id = row.getUserData();
+        selectedDeviceId = (id instanceof String s) ? s : null;
+
+        System.out.println("openDevice clicked, id=" + selectedDeviceId);
+        // TODO: hier ggf. Device-Detail / Cockpit öffnen
     }
 
     @FXML
@@ -210,33 +233,130 @@ public class DeviceController {
         Button sourceButton = (Button) event.getSource();
         rowToDelete = (HBox) sourceButton.getParent();
 
-        Label nameLabel = (Label) rowToDelete.getChildren().get(0);
-        String deviceName = nameLabel.getText();
+        Object id = rowToDelete.getUserData();
+        deviceIdToDelete = (id instanceof String s) ? s : null;
+
+        // Name anzeigen (aus VBox -> Label)
+        String deviceName = "";
+        if (!rowToDelete.getChildren().isEmpty() && rowToDelete.getChildren().get(0) instanceof VBox left) {
+            if (!left.getChildren().isEmpty() && left.getChildren().get(0) instanceof Label nameLabel) {
+                deviceName = nameLabel.getText();
+            }
+        }
 
         if (deleteDeviceNameLabel != null) {
             deleteDeviceNameLabel.setText(deviceName);
         }
 
-        deletePopup.setVisible(true);
-        deletePopup.setManaged(true);
+        if (deletePopup != null) {
+            deletePopup.setVisible(true);
+            deletePopup.setManaged(true);
+        }
     }
 
     @FXML
     private void cancelDeleteDevice() {
-        deletePopup.setVisible(false);
-        deletePopup.setManaged(false);
+        if (deletePopup != null) {
+            deletePopup.setVisible(false);
+            deletePopup.setManaged(false);
+        }
         rowToDelete = null;
+        deviceIdToDelete = null;
     }
 
     @FXML
     private void confirmDeleteDevice() {
-        if (rowToDelete != null) {
-            devicesListBox.getChildren().remove(rowToDelete);
-            // TODO: aus Datenmodell entfernen
-            System.out.println("Gerät gelöscht.");
+        if (deviceIdToDelete != null) {
+            // aus State entfernen
+            if (state.getSensors().remove(deviceIdToDelete) != null) {
+                System.out.println("Sensor entfernt: " + deviceIdToDelete);
+            } else if (state.getActors().remove(deviceIdToDelete) != null) {
+                System.out.println("Aktor entfernt: " + deviceIdToDelete);
+            }
+            JsonStateService.getInstance().save(state);
         }
-        deletePopup.setVisible(false);
-        deletePopup.setManaged(false);
+
+        if (deletePopup != null) {
+            deletePopup.setVisible(false);
+            deletePopup.setManaged(false);
+        }
+
         rowToDelete = null;
+        deviceIdToDelete = null;
+
+        refreshDeviceList();
     }
+
+    // ---------------- Liste neu aufbauen ----------------
+
+    private void refreshDeviceList() {
+        if (devicesListBox == null) return;
+
+        devicesListBox.getChildren().clear();
+
+        state.getSensors().values().forEach(d -> devicesListBox.getChildren().add(buildRow(d, "Sensor")));
+        state.getActors().values().forEach(d -> devicesListBox.getChildren().add(buildRow(d, "Aktor")));
+    }
+
+    private HBox buildRow(SmartDevice device, String subText) {
+        String roomName = resolveRoomNameInline(device);
+
+        Label name = new Label(device.getName() + " (" + roomName + ")");
+        name.setStyle("-fx-font-size:13; -fx-font-weight:bold; -fx-text-fill:#222222;");
+
+        Label type = new Label(subText);
+        type.setStyle("-fx-font-size:11; -fx-text-fill:#666666;");
+
+        VBox left = new VBox(2, name, type);
+        left.setAlignment(Pos.CENTER_LEFT);
+
+        Button edit = new Button("Bearbeiten");
+        Button delete = new Button("Löschen");
+        Button open = new Button("Öffnen");
+
+        String btnStyle =
+                "-fx-background-color:#efefef;" +
+                        "-fx-text-fill:#222222;" +
+                        "-fx-border-color:#cfcfcf;" +
+                        "-fx-border-radius:4;" +
+                        "-fx-background-radius:4;" +
+                        "-fx-padding:4 12 4 12;";
+
+        edit.setStyle(btnStyle);
+        delete.setStyle(btnStyle);
+        open.setStyle(btnStyle);
+
+        edit.setOnAction(e -> editSelectedDevice());
+        delete.setOnAction(this::deleteDevice);
+        open.setOnAction(this::openDevice);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox row = new HBox(12, left, spacer, edit, delete, open);
+        row.setAlignment(Pos.CENTER_LEFT);
+        row.setStyle(
+                "-fx-background-color:white;" +
+                        "-fx-background-radius:16;" +
+                        "-fx-border-radius:16;" +
+                        "-fx-border-color:#cccccc;"
+        );
+        row.setPadding(new Insets(10, 14, 10, 16));
+
+        // Device-ID merken
+        row.setUserData(device.getId());
+        Label roomLine = new Label(resolveRoomNameInline(device));
+
+        return row;
+    }
+    private String resolveRoomNameInline(SmartDevice device) {
+        String rid = device.getRoomId();
+        if (rid == null || rid.isBlank()) return "noch nicht zugewiesen";
+
+        Room r = state.getRooms().get(rid);
+        if (r == null) return "noch nicht zugewiesen";
+        return r.getName();
+    }
+
+
 }

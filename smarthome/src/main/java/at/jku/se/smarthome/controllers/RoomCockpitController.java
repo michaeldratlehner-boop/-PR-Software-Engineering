@@ -45,6 +45,8 @@ public class RoomCockpitController {
 
     @FXML
     public void initialize() {
+        JsonStateService.getInstance().load();
+
         // Wenn rooms.fxml geladen wurde, sind roomsBox/emptyLabel vorhanden
         if (roomsBox != null) {
             loadRoomsList();

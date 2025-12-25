@@ -1,5 +1,6 @@
 package at.jku.se.smarthome;
 
+import at.jku.se.State.JsonStateService;
 import at.jku.se.smarthome.model.User;
 import at.jku.se.State.CurrentUser;
 
@@ -16,16 +17,16 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         try {
-            // Test-Login: existierenden User aus JSON authentifizieren
+            JsonStateService.getInstance().load();// Test-Login: existierenden User aus JSON authentifizieren
             new UserService().loginUser("test@gmx.at", "12345678");
 
-            // Direkt ins Dashboard (ggf. anpassen, wenn deine Datei anders heißt)
+
             setRoot("dashboard"); // oder z.B. "buildingCockpit"
 
         } catch (Exception e) {
             e.printStackTrace();
             // Fallback, falls Login fehlschlägt
-            setRoot("landingPage");
+            setRoot("dashboard");
         }
 
         stage.setTitle("Smarthome Simulator");

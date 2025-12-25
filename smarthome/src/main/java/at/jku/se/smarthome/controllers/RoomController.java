@@ -226,7 +226,7 @@ public class RoomController {
         delete.setUserData(room.getId());
         delete.setOnAction(this::deleteRoom);
 
-        HBox row = new HBox(10, name, spacer, edit, delete);
+        HBox row = new HBox(10, name, spacer, edit, delete,open);
         row.setStyle("-fx-background-color:white; -fx-padding:10; -fx-background-radius:15;");
         return row;
     }
