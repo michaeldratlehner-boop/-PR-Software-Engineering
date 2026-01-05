@@ -136,4 +136,9 @@ public class DashboardController {
         App.setRoot("rooms");   // zuerst Liste, dort Raum auswählen
     }
 
+    @FXML
+    private void goCreateAutomation() {
+        App.setRoot("automationAdd");
+    }
+
 }

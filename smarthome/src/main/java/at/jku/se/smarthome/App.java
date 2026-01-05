@@ -26,7 +26,7 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace();
             // Fallback, falls Login fehlschlägt
-            setRoot("dashboard");
+            setRoot("landingPage");
         }
 
         stage.setTitle("Smarthome Simulator");

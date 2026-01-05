@@ -1,3 +1,4 @@
+at/jku/se/smarthome/controllers/AutomationAddController.class
 at/jku/se/query/AppStateMutations.class
 at/jku/se/query/AppStateQuery.class
 at/jku/se/smarthome/util/AvatarStorage.class

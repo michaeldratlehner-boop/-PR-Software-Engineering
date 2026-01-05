@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.jku.se.smarthome.controllers.AutomationAddController"
+            stylesheets="@automation_add.css"
+            styleClass="root">
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="topbar">
+            <Button text="← Zurück zur Startseite" onAction="#onBack" styleClass="link"/>
+        </HBox>
+    </top>
+    <center>
+            <StackPane styleClass="page">
+                <VBox maxWidth="760" spacing="18" styleClass="card">
+                    <Label text ="Automatisierung hinzufügen" styleClass="title"/>
+                    <HBox spacing="14" alignment="CENTER_LEFT">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Name*" styleClass="label"/>
+                            <TextField fx:id="nameField" promptText="z.B. Temperatur unter 20 Grad" styleClass="input"/>
+                        </VBox>
+                        <VBox spacing="6">
+                            <Label text=" " opacity="0"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Aktiviert" styleClass="label"/>
+                                <ToggleButton fx:id="enabledToggle" styleClass="switch">
+                                    <graphic>
+                                        <StackPane styleClass="switch-track" mouseTransparent="true">
+                                            <Region styleClass="switch-thumb" StackPane.alignment="CENTER_LEFT"/>
+                                        </StackPane>
+                                    </graphic>
+                                </ToggleButton>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="10">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="WENN" styleClass="section"/>
+                            <Separator HBox.hgrow="ALWAYS" styleClass="sep"/>
+                        </HBox>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <ComboBox fx:id="sensorCombo" prefWidth="260" promptText="Sensor auswählen" styleClass="combo"/>
+                            <ComboBox fx:id="operatorCombo" prefWidth="90" promptText="Op" styleClass="combo"/>
+                            <TextField fx:id="valueField" prefWidth="90" promptText="Wert" styleClass="input"/>
+                            <ComboBox fx:id="unitCombo" prefWidth="120" promptText="Einheit" styleClass="combo"/>
+                        </HBox>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT" fx:id="valueChoiceRow" visible="false" managed="false">
+                            <Label text="Wert:" styleClass="label"/>
+                            <ComboBox fx:id="valueChoiceCombo" prefWidth="220" styleClass="combo"/>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="10">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Dann" styleClass="section"/>
+                            <Separator HBox.hgrow="ALWAYS" styleClass="sep"/>
+                        </HBox>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <ComboBox fx:id="deviceCombo" prefWidth="360" promptText="Gerät auswählen" styleClass="combo"/>
+                            <ComboBox fx:id="actionCombo" prefWidth="180" promptText="Aktion auswählen" styleClass="combo"/>
+                        </HBox>
+                    </VBox>
+                    <HBox spacing="14" alignment="CENTER" styleClass="buttons">
+                        <Button text="Speichern" onAction="#onSave" styleClass="btn primary"/>
+                        <Button text="Abbrechen" onAction="#onBack" styleClass="btn secondary"/>
+                    </HBox>
+
+                    <Text fx:id="hintText" text=" " styleClass="hint"/>
+                </VBox>
+            </StackPane>
+    </center>
+
+</BorderPane>

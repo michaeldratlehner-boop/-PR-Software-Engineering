@@ -181,7 +181,9 @@
 
 
                 <!-- Automatisierung hinzufügen -->
-                <VBox   GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-background-color: white; -fx-background-radius: 12;
+                <VBox   GridPane.rowIndex="0" GridPane.columnIndex="3"
+                        onMouseClicked="#goCreateAutomation"
+                        style="-fx-background-color: white; -fx-background-radius: 12;
                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
                       prefWidth="260" prefHeight="140" spacing="8">
                     <padding>
@@ -189,44 +191,6 @@
                     </padding>
                     <Label text="Automatisierung hinzufügen" style="-fx-font-size: 18px;"/>
                     <Label text="Definieren Sie ‚Wenn…Dann…‘-Regeln für intelligente Abläufe"
-                           wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
-                </VBox>
-
-                <!-- zweite Reihe -->
-                <!-- Sensorwerte hinzufügen -->
-                <VBox GridPane.rowIndex="1" style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
-                      prefWidth="260" prefHeight="140" spacing="8">
-                    <padding>
-                        <Insets top="20" left="20" right="20"/>
-                    </padding>
-                    <Label text="Sensorwerte hinzufügen" style="-fx-font-size: 18px;"/>
-                    <Label text="Überwachen Sie Temperatur, Helligkeit und weitere Sensordaten"
-                           wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
-                </VBox>
-
-                <!-- Zeitsteuerung hinzufügen-->
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1"
-                      style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
-                      prefWidth="260" prefHeight="140" spacing="8">
-                    <padding>
-                        <Insets top="20" left="20" right="20"/>
-                    </padding>
-                    <Label text="Zeitsteuerung hinzufügen" style="-fx-font-size: 18px;"/>
-                    <Label text="Planen Sie Aktionen basierend auf Zeit und Zeitplänen"
-                           wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
-                </VBox>
-                <!-- Sicherheitssysteme hinzufügen -->
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="2"
-                      style="-fx-background-color: white; -fx-background-radius: 12;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10,0,0,3);"
-                      prefWidth="260" prefHeight="140" spacing="8">
-                    <padding>
-                        <Insets top="20" left="20" right="20"/>
-                    </padding>
-                    <Label text="Sicherheit hinzufügen" style="-fx-font-size: 18px;"/>
-                    <Label text="Simulieren Sie Sicherheitssysteme und Überwachung"
                            wrapText="true" style="-fx-text-fill: gray; -fx-font-size: 14;"/>
                 </VBox>
 
