@@ -1,0 +1,179 @@
+.root{
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+.topbar{
+    -fx-padding: 18;
+}
+
+.page{
+    -fx-padding: 14 14 24 14;
+}
+
+.card{
+    -fx-padding: 26;
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 26;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10),30,0,0,8);
+}
+
+.title{
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.section{
+    -fx-font-size: 18;
+    -fx-font-weight: 800;
+}
+
+.label{
+    -fx-font-weight: 700;
+}
+
+.hint{
+    -fx-fill: #333;
+}
+
+.sep{
+    -fx-opacity: 0.65;
+}
+
+.input{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(0,0,0,0.12);
+    -fx-padding: 10 12;
+}
+
+.combo{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(0,0,0,0.12);
+}
+
+.combo .list-cell{
+    -fx-padding: 10 12;
+}
+
+.buttons{
+    -fx-padding: 6 0 0 0;
+}
+
+/* Basis für ALLE Buttons */
+.button.btn{
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 10 18;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+
+    /* wichtig gegen Modena Layer */
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+/* SPEICHERN – schwarz / weiß */
+.button.btn.primary{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.button.btn.primary:hover{
+    -fx-opacity: 0.92;
+}
+
+.button.btn.primary:pressed{
+    -fx-opacity: 0.85;
+}
+
+/* ABBRECHEN – weiß */
+.button.btn.secondary{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.button.btn.secondary:hover{
+    -fx-background-color: #f2f2f2;
+}
+
+.button.btn.secondary:pressed{
+    -fx-background-color: #e6e6e6;
+}
+
+/* LINK BUTTON (Zurück) */
+.button.link{
+    -fx-background-color: transparent;
+    -fx-text-fill: #222;
+    -fx-font-weight: 700;
+    -fx-padding: 8 10;
+    -fx-cursor: hand;
+}
+
+.button.link:hover{
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 10;
+}
+
+
+
+.switch {
+    -fx-content-display: graphic-only;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Track */
+.switch .switch-track {
+    -fx-pref-width: 46;
+    -fx-pref-height: 26;
+    -fx-min-width: 46;
+    -fx-min-height: 26;
+
+    -fx-padding: 3;
+
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+
+    -fx-background-color: #F0F0F0;
+    -fx-border-color: rgba(0,0,0,0.25);
+    -fx-border-width: 2;
+}
+
+/* ON */
+.switch:selected .switch-track {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: #4CAF50;
+}
+
+/* Thumb */
+.switch .switch-thumb {
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-min-width: 20;
+    -fx-min-height: 20;
+    -fx-max-width: 20;
+    -fx-max-height: 20;
+
+    -fx-background-radius: 999;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 2);
+}
+
+/* Bewegung */
+.switch .switch-thumb { -fx-translate-x: 0; }
+.switch:selected .switch-thumb { -fx-translate-x: 20; }
+
+
+
